@@ -61,7 +61,8 @@ public class QueenProblem {
                 int[] position = searchRecResult(mass, numberOfQueen+1);
                 if(position != null){
                     totalResults++;
-                    printResult(position);
+                    //printResult(position);
+                    printIndex(position);
                 }
             }
         }
@@ -87,5 +88,13 @@ public class QueenProblem {
             }
             System.out.println("\n");
         }
+    }
+
+    private void printIndex(int[] positions){
+        System.out.print("[ ");
+        for(int i: positions){
+            System.out.print(i + " ");
+        }
+        System.out.println("]");
     }
 }
