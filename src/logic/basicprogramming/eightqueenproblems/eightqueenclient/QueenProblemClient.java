@@ -3,6 +3,8 @@ package logic.basicprogramming.eightqueenproblems.eightqueenclient;
 import logic.basicprogramming.eightqueenproblems.eightqueensolution.QueenProblem;
 
 /**
+ * Test QueenProblem
+ *
  * @author hellnyk
  */
 public class QueenProblemClient {
