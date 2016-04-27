@@ -1,4 +1,4 @@
-package logic.basicprogramming.eightqueenproblems;
+package logic.basicprogramming.eightqueenproblems.eightqueensolution;
 
 /**
  * Solution of queens problem
@@ -6,6 +6,11 @@ package logic.basicprogramming.eightqueenproblems;
  * @author hellnyk
  */
 public class QueenProblem {
+
+    /**
+     * value, which represents print result such as matrix
+     */
+    private static final int PRINT_MATRIX = 0;
 
     /**
      *value of all results of different types of solutions queens problem
@@ -18,12 +23,23 @@ public class QueenProblem {
     private int size;
 
     /**
-     * Default constructor
-     * @param size
+     * kind how result will be print
      */
-    public QueenProblem(int size){
+    private int kindOfPrintResult;
+
+    /**
+     * Default constructor
+     *
+     * @param size
+     *      capasity of chessboard and also number of queens
+     * @param kindOfPrintResult
+     *      type of printing result
+     *      if 0 - print such as matrix and if another value, print such as vector
+     */
+    public QueenProblem(int size, int kindOfPrintResult){
         this.size = size;
         totalResults = 0;
+        this.kindOfPrintResult = kindOfPrintResult;
     }
 
     /**
@@ -34,13 +50,14 @@ public class QueenProblem {
     }
 
     /**
+     *  find concrete result vector with special arrangement for each queen
      *
      * @param mass
      *      array for setting positions of queens
      * @param numberOfQueen
      *      number of queen
      * @return
-     *
+     *      null, if this arrangement does not exist
      *
      */
     private int[] searchRecResult(int[] mass, int numberOfQueen){
@@ -61,8 +78,10 @@ public class QueenProblem {
                 int[] position = searchRecResult(mass, numberOfQueen+1);
                 if(position != null){
                     totalResults++;
-                    //printResult(position);
-                    printIndex(position);
+                    if(kindOfPrintResult == PRINT_MATRIX)
+                        printResultMatrix(position);
+                    else
+                        printResultIndex(position);
                 }
             }
         }
@@ -75,8 +94,8 @@ public class QueenProblem {
      * @param positions
      *      array with result of positions for queens
      */
-    private void printResult(int[] positions){
-        System.out.println("\n**** Result: " + totalResults + " ****");
+    private void printResultMatrix(int[] positions){
+        System.out.println("**** Result: " + totalResults + " ****");
         for(int i = 0; i < positions.length; i++){
             int queenPosition = positions[i];
             for (int j = 1; j < queenPosition; j++) {
@@ -86,11 +105,18 @@ public class QueenProblem {
             for (int j = queenPosition + 1; j <= positions.length; j++) {
                 System.out.print("- ");
             }
-            System.out.println("\n");
+            System.out.println();
         }
+        System.out.println("\n");
     }
 
-    private void printIndex(int[] positions){
+    /**
+     * print result array
+     *
+     * @param positions
+     *      array with result of positions for queens
+     */
+    private void printResultIndex(int[] positions){
         System.out.print("[ ");
         for(int i: positions){
             System.out.print(i + " ");
