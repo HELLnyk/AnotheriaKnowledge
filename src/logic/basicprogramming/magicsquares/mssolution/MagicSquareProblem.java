@@ -1,7 +1,5 @@
 package logic.basicprogramming.magicsquares.mssolution;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import java.util.*;
 
 /**
