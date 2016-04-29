@@ -3,6 +3,8 @@ package logic.basicprogramming.magicsquares.mssolution;
 import java.util.*;
 
 /**
+ * Resolve magic square problem
+ *
  * @author hellnyk
  */
 public class MagicSquareProblem{
@@ -47,8 +49,10 @@ public class MagicSquareProblem{
                 constructList.add(listOfKeyIndex, massBasedOnIndex(listOfKey[listOfKeyIndex], basedArray));
             }
             int[] constructArray = getConstructArray(constructList);
-            if(isMagicSquare(setToMagic(constructArray))){
+            int[][] matrix = setToMagic(constructArray);
+            if(isMagicSquare(matrix)){
                 total++;
+                FileWriter.writeMatrix(matrix, total);
             }
         }
         System.out.println(total);
