@@ -2,7 +2,7 @@ package logic.basicprogramming.magicsquares.mssolution;
 
 import com.sun.org.apache.xpath.internal.SourceTree;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * @author hellnyk
@@ -11,56 +11,70 @@ public class MagicSquareProblem{
 
     private int total = 0;
 
-    private int[] revAr = {25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
-
     private int dimension;
 
     public MagicSquareProblem(int dimension){
         this.dimension = dimension;
     }
 
-    public int[] initArray(){
-        int[] numbersArray = new int[dimension * dimension];
+    public void getResult(){
+        int[] totalArray = initArray(dimension*dimension);
+        getResultBasedOnMagicArray(totalArray);
+        getResultBasedOnMagicArray(initReverseArray(totalArray));
+    }
+
+    private int[] initArray(int dimension){
+        int[] numbersArray = new int[dimension];
         for (int numberValue = 0; numberValue < numbersArray.length; numberValue++) {
             numbersArray[numberValue] = numberValue + 1;
         }
         return numbersArray;
     }
 
-    /**
-     *
-     */
-    public void getResult(){
-        runOnArray(initArray());
-        runOnArray(revAr);
+    private int[] initReverseArray(int[] arrayFor){
+        int[] arrayTo = new int[arrayFor.length];
+        int startValue = arrayFor.length-1;
+        for (int arrayToIndex = 0; arrayToIndex < arrayTo.length; arrayToIndex++) {
+            arrayTo[arrayToIndex] = arrayFor[startValue];
+            startValue--;
+        }
+        return arrayTo;
+    }
+
+    public void getResultBasedOnMagicArray(int[] basedArray){
+        List<int[]> listOfKeys = Reshuffle.getReshuffleList(initArray(dimension));
+        for(int[] listOfKey: listOfKeys){
+            List<int[]> constructList = new ArrayList<>(dimension);
+            for (int listOfKeyIndex = 0; listOfKeyIndex < listOfKey.length; listOfKeyIndex++){
+                constructList.add(listOfKeyIndex, massBasedOnIndex(listOfKey[listOfKeyIndex], basedArray));
+            }
+            int[] constructArray = getConstructArray(constructList);
+            if(isMagicSquare(setToMagic(constructArray))){
+                total++;
+            }
+        }
         System.out.println(total);
     }
 
-    private void runOnArray(int[] array){
-        int pointer = 0;
-        while (pointer != dimension){
-            int [] constructArray = array;
+    private int[] getConstructArray(List<int[]> list){
+        int[] result = new int[list.size()*dimension];
+        int resultIndex = 0;
 
-            for (int pathOfArray = pointer; pathOfArray < dimension -1; pathOfArray++) {
-                int [][] matrix = setToMagic(constructArray);
-                if(isMagicSquare(matrix)){
-                    //printMatrix(matrix);
-                    //printSum(matrix);
-                    total++;
-                }
-                constructArray = swapElementsInMass(constructArray, pathOfArray);
+        for(int[] arrayFromList: list){
+            for(int elementFromArray: arrayFromList){
+                result[resultIndex] = elementFromArray;
+                resultIndex++;
             }
-            pointer++;
         }
+        return result;
     }
 
-    private int[] swapElementsInMass(int[] whichArray, int positionStartForMoving){
-        for (int counter = 0; counter < dimension; counter++) {
-            int temp = whichArray[positionStartForMoving* dimension + counter];
-            whichArray[positionStartForMoving* dimension + counter] = whichArray[positionStartForMoving*dimension + dimension + counter];
-            whichArray[positionStartForMoving*dimension + dimension + counter] = temp;
+    private int[] massBasedOnIndex(int index, int[] arrayFrom){
+        int [] pathMass = new int[dimension];
+        for(int pathMassIndex = 0; pathMassIndex < pathMass.length; pathMassIndex++){
+            pathMass[pathMassIndex] = arrayFrom[(index-1)*dimension + pathMassIndex];
         }
-        return whichArray;
+        return pathMass;
     }
 
     private int[][] setToMagic(int [] arrayNumbers){
@@ -69,8 +83,8 @@ public class MagicSquareProblem{
         int columnIndex = capacity/2;
         int[][] matrix = new int[capacity][capacity];
 
-        for (int settedNumber = 0; settedNumber < arrayNumbers.length; settedNumber++) {
-            matrix[rowIndex][columnIndex] = arrayNumbers[settedNumber];
+        for (int elementFromArray: arrayNumbers) {
+            matrix[rowIndex][columnIndex] = elementFromArray;
             rowIndex -= 1;
             columnIndex += 1;
             if(isTopOutBoard(rowIndex)){
@@ -120,59 +134,7 @@ public class MagicSquareProblem{
             if(sumInRow != sumInColumn)
                 return false;
         }
-        if(sumDownDiagonal != sumUpDiagonal)
-            return false;
-        else
-            return true;
-    }
-
-
-
-
-
-
-    private void printMatrix(int[][] matrix){
-        System.out.println("********************* Result matrix *******************");
-        for (int rowIndex = 0; rowIndex < matrix.length; rowIndex++) {
-            for (int columnIndex = 0; columnIndex < matrix[rowIndex].length; columnIndex++){
-                if(matrix[rowIndex][columnIndex] >= 10)
-                    System.out.print(matrix[rowIndex][columnIndex] + " ");
-                else
-                    System.out.print(matrix[rowIndex][columnIndex] + "  ");
-            }
-            System.out.println();
-        }
-    }
-
-    private void printSum(int[][] matrix){
-        System.out.println("********************* sum of matrix *******************");
-        for (int rowIndex = 0; rowIndex < matrix.length; rowIndex++) {
-            int sumInRow = 0;
-            int sumInColumn = 0;
-            StringBuffer stringBufferRow = new StringBuffer();
-            StringBuffer stringBufferColumn = new StringBuffer();
-            for (int columnIndex = 0; columnIndex < matrix[rowIndex].length; columnIndex++) {
-                sumInRow += matrix[rowIndex][columnIndex];
-                sumInColumn += matrix[columnIndex][rowIndex];
-                stringBufferRow.append(matrix[rowIndex][columnIndex] + " ");
-                stringBufferColumn.append(matrix[columnIndex][rowIndex] + " ");
-            }
-            System.out.println("Sum in " + (rowIndex+1) + " row " + stringBufferRow + " = " + sumInRow);
-            System.out.println("Sum in " + (rowIndex+1) + " column " + stringBufferColumn + " = " + sumInColumn);
-        }
-
-        int sumUpDiagonal = 0;
-        int sumDownDiagonal = 0;
-        StringBuffer stringBufferUpDiagonal = new StringBuffer();
-        StringBuffer stringBufferDownDiagonal = new StringBuffer();
-        for (int rowIndex = 0; rowIndex < matrix.length; rowIndex++) {
-             sumDownDiagonal += matrix[rowIndex][rowIndex];
-             sumUpDiagonal += matrix[matrix.length-rowIndex-1][rowIndex];
-            stringBufferDownDiagonal.append(matrix[rowIndex][rowIndex] + " ");
-            stringBufferUpDiagonal.append(matrix[matrix.length-rowIndex-1][rowIndex] + " ");
-        }
-        System.out.println("Sum in down diagonal: " + stringBufferDownDiagonal + " = " + sumDownDiagonal);
-        System.out.println("Sun in up diagonal: " + stringBufferUpDiagonal +" = " + sumUpDiagonal);
+        return sumDownDiagonal == sumUpDiagonal;
     }
 }
 
