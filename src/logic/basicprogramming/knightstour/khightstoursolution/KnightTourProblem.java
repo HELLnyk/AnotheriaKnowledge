@@ -21,12 +21,12 @@ public class KnightTourProblem {
      * types of knight move
      */
     private static final int[][] KNIGHT_MOVES_XY = {
-            {-2, 1},
-            {-1, 2},
-            {1, 2},
-            {2, 1},
-            {2, -1},
-            {1, -2},
+            {-2,  1},
+            {-1,  2},
+            { 1,  2},
+            { 2,  1},
+            { 2, -1},
+            { 1, -2},
             {-1, -2},
             {-2, -1}
     };
@@ -39,12 +39,16 @@ public class KnightTourProblem {
     /**
      * the knight`s moves on the chessboard
      */
-    private Position[] moves;
+    public Position[] moves;
 
     /**
      * cells of chessboard, where knight was
      */
     private boolean[][] visitedCells;
+
+    private int[][] helpMatrix;
+
+    private final int symmetricalCourse;
 
     /**
      * Default constructor
@@ -53,6 +57,9 @@ public class KnightTourProblem {
         sizeOfChessboard = 8;
         visitedCells = new boolean[sizeOfChessboard][sizeOfChessboard];
         moves = new Position[sizeOfChessboard * sizeOfChessboard];
+        helpMatrix = new int[sizeOfChessboard][sizeOfChessboard];
+        symmetricalCourse = sizeOfChessboard*sizeOfChessboard / 2;
+
     }
 
 
@@ -71,9 +78,17 @@ public class KnightTourProblem {
     }
 
     private boolean solveRecAllMoves(Position currentPosition, int move) {
+
         moves[move] = currentPosition;
+        Position symmetricPosition = getSymmetricPosition(currentPosition);
+        moves[move + symmetricalCourse] = symmetricPosition;
         visitedCells[currentPosition.getX()][currentPosition.getY()] = true;
-        if (move == sizeOfChessboard * sizeOfChessboard - 1) {
+        visitedCells[symmetricPosition.getX()][symmetricPosition.getY()] = true;
+
+//        helpMatrix[currentPosition.getX()][currentPosition.getY()] = move+1;
+//        helpMatrix[symmetricPosition.getX()][symmetricPosition.getY()] = move + 1 + symmetricalCourse;
+//        FileWriter.writeMatrix(helpMatrix, move+1);
+        if (move == (sizeOfChessboard * sizeOfChessboard - 1)/2) {
             printResult();
             return true;
         } else {
@@ -81,6 +96,12 @@ public class KnightTourProblem {
             Position nextPosition = getWarnsdorffsPosition(positions);
             return solveRecAllMoves(nextPosition, move + 1);
         }
+    }
+
+    private Position getSymmetricPosition(Position positionFor){
+        int xCoordinate = sizeOfChessboard - positionFor.getX() - 1;
+        int yCoordinate = sizeOfChessboard - positionFor.getY() - 1;
+        return new Position(xCoordinate, yCoordinate, 0);
     }
 
 
@@ -106,6 +127,9 @@ public class KnightTourProblem {
      *      {@link Position} with minimum chances to move
      */
     private Position getWarnsdorffsPosition(List<Position> list) {
+        if(list.isEmpty()){
+            return null;
+        }
         int counterOfMinPositions = sizeOfChessboard;
         int numberOfMinPos = 0;
         for (int iter = 0; iter < list.size(); iter++) {
