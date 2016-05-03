@@ -77,16 +77,16 @@ public class KnightTourProblem {
             printResult();
             return true;
         } else {
-            List<Position> positions = getAllAvailablePositions(currentPosition);
+            List<Position> positions = getAllAvailablePositions(currentPosition, 0);
             Position nextPosition = getWarnsdorffsPosition(positions);
             return solveRecAllMoves(nextPosition, move + 1);
         }
     }
 
 
-    private List<Position> getAllAvailablePositions(Position positionFor) {
+    private List<Position> getAllAvailablePositions(Position positionFor, int startMove) {
         List<Position> availablePositions = new ArrayList<>();
-        for (int typeOfMove = 0; typeOfMove < KNIGHT_MOVES_XY.length; typeOfMove++) {
+        for (int typeOfMove = startMove; typeOfMove < KNIGHT_MOVES_XY.length; typeOfMove++) {
             int canBePositionX = positionFor.getX() + KNIGHT_MOVES_XY[typeOfMove][0];
             int canBePositionY = positionFor.getY() + KNIGHT_MOVES_XY[typeOfMove][1];
             if (isPositionOnChessboard(canBePositionX, canBePositionY) && !visitedCells[canBePositionX][canBePositionY]) {
@@ -103,13 +103,13 @@ public class KnightTourProblem {
      * @param list
      *      {@link List<Position>} of available positions to move
      * @return
-     *      {@link Position} with minimum chances to move
+     *      {@link Position} with minimum chances to move, or null if don`t have any positions
      */
     private Position getWarnsdorffsPosition(List<Position> list) {
         int counterOfMinPositions = sizeOfChessboard;
         int numberOfMinPos = 0;
         for (int iter = 0; iter < list.size(); iter++) {
-            List<Position> availPos = getAllAvailablePositions(list.get(iter));
+            List<Position> availPos = getAllAvailablePositions(list.get(iter), 0);
             if (availPos.size() < counterOfMinPositions) {
                 counterOfMinPositions = availPos.size();
                 numberOfMinPos = iter;
