@@ -70,12 +70,23 @@ public class KnightTourProblem {
     }
 
 
+    /**
+     * set first position of knight on the chessboard
+     *
+     * @param xCoordinate
+     *      vertical coordinate of position
+     * @param yCoordinate
+     *      horizontal coordinate of position
+     */
     private void setStartPosition(int xCoordinate, int yCoordinate) {
         if (isPositionOnChessboard(xCoordinate, yCoordinate))
             moves[0] = new Position(xCoordinate, yCoordinate, 0);
         else
             moves[0] = new Position(START_ON_CHESSBOARD, START_ON_CHESSBOARD, 0);
     }
+
+
+
 
     private boolean solveRecAllMoves(Position currentPosition, int move) {
 
@@ -105,6 +116,18 @@ public class KnightTourProblem {
     }
 
 
+
+
+
+
+    /**
+     * find all possibly moves for position in the parameter
+     *
+     * @param positionFor
+     *      current position of knight
+     * @return
+     *      {@link List<Position>}  of available positions on the chessboard for current move
+     */
     private List<Position> getAllAvailablePositions(Position positionFor) {
         List<Position> availablePositions = new ArrayList<>();
         for (int typeOfMove = 0; typeOfMove < KNIGHT_MOVES_XY.length; typeOfMove++) {
@@ -127,9 +150,6 @@ public class KnightTourProblem {
      *      {@link Position} with minimum chances to move
      */
     private Position getWarnsdorffsPosition(List<Position> list) {
-        if(list.isEmpty()){
-            return null;
-        }
         int counterOfMinPositions = sizeOfChessboard;
         int numberOfMinPos = 0;
         for (int iter = 0; iter < list.size(); iter++) {
