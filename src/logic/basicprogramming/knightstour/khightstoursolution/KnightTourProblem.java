@@ -12,8 +12,14 @@ import java.util.List;
  */
 public class KnightTourProblem {
 
+    /**
+     * the start (most top-left) position on the chessboard
+     */
     public static final int START_ON_CHESSBOARD = 0;
 
+    /**
+     * types of knight move
+     */
     private static final int[][] KNIGHT_MOVES_XY = {
             {-2, 1},
             {-1, 2},
@@ -25,18 +31,30 @@ public class KnightTourProblem {
             {-2, -1}
     };
 
+    /**
+     * size of the chessboard
+     */
     private int sizeOfChessboard;
 
-
+    /**
+     * the knight`s moves on the chessboard
+     */
     private Position[] moves;
 
+    /**
+     * cells of chessboard, where knight was
+     */
     private boolean[][] visitedCells;
 
+    /**
+     * Default constructor
+     */
     public KnightTourProblem() {
         sizeOfChessboard = 8;
         visitedCells = new boolean[sizeOfChessboard][sizeOfChessboard];
         moves = new Position[sizeOfChessboard * sizeOfChessboard];
     }
+
 
     public void getResult(int xCoordinate, int yCoordinate) {
         setStartPosition(xCoordinate, yCoordinate);
