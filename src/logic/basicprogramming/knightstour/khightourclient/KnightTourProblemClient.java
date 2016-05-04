@@ -8,25 +8,18 @@ import logic.basicprogramming.knightstour.khightstoursolution.KnightTourProblem;
 public class KnightTourProblemClient {
 
     public static void main(String[] args) {
-        //KnightTourProblemClient.onPosition(0,0);
-        KnightTourProblemClient.allResults();
+        testOnPosition(5,4);
     }
 
-    public static void  allResults(){
-        int counter = 0;
+    private static void testAllPositions(){
         for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                counter++;
-                if(i == 5 && j == 4){
-                    continue;
-                }
-                System.out.println(String.format("Stage: %d Position (X: %d; Y:%d)", counter, i, j));
-                new KnightTourProblem().getResult(i, j);
+            for (int j = 0; j < 0; j++) {
+                new KnightTourProblem().getResult(i,j);
             }
         }
     }
 
-    public static void onPosition(int x, int y){
+    private static void testOnPosition(int x, int y){
         new KnightTourProblem().getResult(x, y);
     }
 }
