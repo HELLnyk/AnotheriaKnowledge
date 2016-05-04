@@ -19,14 +19,14 @@ public class KnightTourProblem {
      * types of knight move
      */
     private static final int[][] KNIGHT_MOVES_XY = {
-            {-2,  1},
-            {-1,  2},
-            { 1,  2},
-            { 2,  1},
-            { 2, -1},
-            { 1, -2},
-            {-1, -2},
-            {-2, -1}
+            {-2, 1},
+            {-1, 2},
+            { 1, 2},
+            { 2, 1},
+            { 2,-1},
+            { 1,-2},
+            {-1,-2},
+            {-2,-1}
     };
 
     /**
