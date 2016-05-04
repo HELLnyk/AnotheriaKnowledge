@@ -44,10 +44,6 @@ public class KnightTourProblem {
      */
     private boolean[][] visitedCells;
 
-    private int[][] helpMatrix;
-
-    private final int symmetricalCourse;
-
     /**
      * Default constructor
      */
@@ -55,9 +51,6 @@ public class KnightTourProblem {
         sizeOfChessboard = 8;
         visitedCells = new boolean[sizeOfChessboard][sizeOfChessboard];
         moves = new Position[sizeOfChessboard * sizeOfChessboard];
-        helpMatrix = new int[sizeOfChessboard][sizeOfChessboard];
-        symmetricalCourse = sizeOfChessboard*sizeOfChessboard / 2;
-
     }
 
     /**
@@ -82,9 +75,9 @@ public class KnightTourProblem {
      */
     private void setStartPosition(int xCoordinate, int yCoordinate) {
         if (isPositionOnChessboard(xCoordinate, yCoordinate))
-            moves[0] = new Position(xCoordinate, yCoordinate, 0);
+            moves[0] = new Position(xCoordinate, yCoordinate);
         else
-            moves[0] = new Position(START_ON_CHESSBOARD, START_ON_CHESSBOARD, 0);
+            moves[0] = new Position(START_ON_CHESSBOARD, START_ON_CHESSBOARD);
     }
 
 
@@ -139,7 +132,7 @@ public class KnightTourProblem {
             int canBePositionX = positionFor.getX() + KNIGHT_MOVES_XY[typeOfMove][0];
             int canBePositionY = positionFor.getY() + KNIGHT_MOVES_XY[typeOfMove][1];
             if (isPositionOnChessboard(canBePositionX, canBePositionY) && !visitedCells[canBePositionX][canBePositionY]) {
-                availablePositions.add(new Position(canBePositionX, canBePositionY, 0));
+                availablePositions.add(new Position(canBePositionX, canBePositionY));
             }
         }
         return availablePositions;
