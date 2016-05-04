@@ -7,15 +7,10 @@ public class Position {
 
     private int x;
     private int y;
-    private int kindOfMove;
 
-    public Position(int x, int y, int kindOfMove) {
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
-        this.kindOfMove = kindOfMove;
-    }
-
-    public Position() {
     }
 
     public int getX() {
@@ -24,13 +19,5 @@ public class Position {
 
     public int getY() {
         return y;
-    }
-
-    public int getKindOfMove() {
-        return kindOfMove;
-    }
-
-    public void setKindOfMove(int kindOfMove) {
-        this.kindOfMove = kindOfMove;
     }
 }
