@@ -23,6 +23,7 @@ public class KnightTourProblemClient {
     }
 
     public static void testPosition(int x, int y){
+
         new KnightTourProblem().getResult(x, y);
     }
 }
