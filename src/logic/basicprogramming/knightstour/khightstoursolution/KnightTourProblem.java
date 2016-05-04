@@ -23,12 +23,12 @@ public class KnightTourProblem {
     private static final int[][] KNIGHT_MOVES_XY = {
             {-2, 1},
             {-1, 2},
-            {1, 2},
-            {2, 1},
-            {2, -1},
-            {1, -2},
-            {-1, -2},
-            {-2, -1}
+            { 1, 2},
+            { 2, 1},
+            { 2,-1},
+            { 1,-2},
+            {-1,-2},
+            {-2,-1}
     };
 
     /**
