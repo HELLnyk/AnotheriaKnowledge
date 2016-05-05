@@ -7,8 +7,19 @@ import java.io.*;
  */
 public class FileWriter {
 
+    /**
+     * filename, where information will be recorded
+     */
     private static final String FILE_NAME = "/home/hellnyk/HELLnyk/gitRepositories/AnotheriaKnowledge/matrixoutput.txt";
 
+    /**
+     * constructs {@link StringBuffer} instance for writing into the file
+     *
+     * @param matrix
+     *      matrix which will be written into the file
+     * @param number
+     *      current number of result matrix
+     */
     public static void writeMatrix(int [][] matrix, int number){
         StringBuffer stringBuffer = new StringBuffer();
         String title = "**** " + number + " matrix ****\n";
@@ -29,13 +40,12 @@ public class FileWriter {
         printData(stringBuffer);
     }
 
-    //------------------
-            public static void printValue(int value){
-                StringBuffer stringBuffer = new StringBuffer(value);
-                printData(stringBuffer);
-            }
-    //------------------
-
+    /**
+     * writes {@link StringBuffer} instance into the file
+     *
+     * @param stringBuffer
+     *      {@link StringBuffer} instance for writing
+     */
     private static void printData(StringBuffer stringBuffer){
         try(RandomAccessFile file = new RandomAccessFile(FILE_NAME, "rw")) {
             file.skipBytes((int) file.length());
