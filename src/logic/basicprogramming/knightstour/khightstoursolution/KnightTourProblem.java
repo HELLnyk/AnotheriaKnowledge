@@ -124,36 +124,6 @@ public class KnightTourProblem {
     }
 
     /**
-     * check if can do move from last position to first
-     *
-     * @return
-     *      true, if can, false - otherwise
-     */
-    private boolean isMoveToCloseWay(){
-        for (int move = 0; move < KNIGHT_MOVES_XY.length; move++) {
-            if(moves[0].getX() == moves[moves.length - 1].getX() + KNIGHT_MOVES_XY[move][0]
-                    && moves[0].getY() == moves[moves.length - 1].getY() + KNIGHT_MOVES_XY[move][1]){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * get symmetric position for current position on the chessboard,
-     * which represents such as centrosymmetric matrix
-     *
-     * @param position
-     *      {@link Position} current position of knight
-     * @return
-     *      {@link Position} symmetric instance for current position
-     */
-    private Position getSymmetricPosition(Position position){
-        return new Position(sizeOfChessboard - 1- position.getX(),
-                sizeOfChessboard - 1- position.getY());
-    }
-
-    /**
      * find all possibly moves for position in the parameter
      *
      * @param positionFor
