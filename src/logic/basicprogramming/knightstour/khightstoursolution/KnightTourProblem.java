@@ -19,14 +19,14 @@ public class KnightTourProblem {
      * types of knight move
      */
     private static final int[][] KNIGHT_MOVES_XY = {
-            {-2,  1},
-            {-1,  2},
-            { 1,  2},
-            { 2,  1},
-            { 2, -1},
-            { 1, -2},
-            {-1, -2},
-            {-2, -1}
+            {-2, 1},
+            {-1, 2},
+            { 1, 2},
+            { 2, 1},
+            { 2,-1},
+            { 1,-2},
+            {-1,-2},
+            {-2,-1}
     };
 
     /**
@@ -45,19 +45,27 @@ public class KnightTourProblem {
     private boolean[][] visitedCells;
 
     /**
+     * difference between symmetric moves on the chessboard
+     */
+    private int symmetricCourse;
+
+    /**
      * Default constructor
      */
     public KnightTourProblem() {
         sizeOfChessboard = 8;
         visitedCells = new boolean[sizeOfChessboard][sizeOfChessboard];
         moves = new Position[sizeOfChessboard * sizeOfChessboard];
+        symmetricCourse = sizeOfChessboard*sizeOfChessboard / 2;
     }
 
     /**
      * get result of resolving knight`s tour problem for client
      *
-     * @param xCoordinate,yCoordinate
-     *      coordinates of users start position of knight
+     * @param xCoordinate
+     *      vertical coordinate of users start position of knight
+     * @param yCoordinate
+     *      horizontal coordinate of users start position of knight
      */
     public void getResult(int xCoordinate, int yCoordinate) {
         setStartPosition(xCoordinate, yCoordinate);
@@ -80,28 +88,30 @@ public class KnightTourProblem {
             moves[0] = new Position(START_ON_CHESSBOARD, START_ON_CHESSBOARD);
     }
 
-
     /**
-     * find recursive not closed way for knight on the chessboard
+     * find recursive closed way for knight on the chessboard
      *
      * @param currentPosition
      *      current position of the knight for which searching next move
      * @param move
      *      number of move
      * @return
-     *      return true, if we find next position or all solution
+     *      true, if we find next position or all solution, and
      *      false, if current position doesn`t have available move
      */
     private boolean solveRecAllMoves(Position currentPosition, int move) {
         moves[move] = currentPosition;
         visitedCells[currentPosition.getX()][currentPosition.getY()] = true;
-        if (move == (sizeOfChessboard * sizeOfChessboard - 1)) {
-            printResult();
-            return true;
+
+        Position symmetricPosition = getSymmetricPosition(currentPosition);
+        moves[move + symmetricCourse] = symmetricPosition;
+        visitedCells[symmetricPosition.getX()][symmetricPosition.getY()] = true;
+
+        if (move == ((sizeOfChessboard * sizeOfChessboard - 1))/2 && isMoveToCloseWay()) {
+               printResult();
+               return true;
         } else {
-
             for (int moveType = 0; moveType < KNIGHT_MOVES_XY.length; moveType++) {
-
                 List<Position> positions = getAllAvailablePositions(currentPosition, moveType);
                 Position nextPosition = getWarnsdorffsPosition(positions);
                 if(nextPosition == null){
@@ -110,12 +120,44 @@ public class KnightTourProblem {
                 if(solveRecAllMoves(nextPosition, move + 1)) {
                     return true;
                 }
-
             }
         }
+        visitedCells[symmetricPosition.getX()][symmetricPosition.getY()] = false;
+        moves[move + symmetricCourse] = null;
+
         visitedCells[currentPosition.getX()][currentPosition.getY()] = false;
         moves[move] = null;
         return false;
+    }
+
+    /**
+     * check if can do move from last position to first
+     *
+     * @return
+     *      true, if can, false - otherwise
+     */
+    private boolean isMoveToCloseWay(){
+        for (int move = 0; move < KNIGHT_MOVES_XY.length; move++) {
+            if(moves[0].getX() == moves[moves.length - 1].getX() + KNIGHT_MOVES_XY[move][0]
+                    && moves[0].getY() == moves[moves.length - 1].getY() + KNIGHT_MOVES_XY[move][1]){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * get symmetric position for current position on the chessboard,
+     * which represents such as centrosymmetric matrix
+     *
+     * @param position
+     *      {@link Position} current position of knight
+     * @return
+     *      {@link Position} symmetric instance for current position
+     */
+    private Position getSymmetricPosition(Position position){
+        return new Position(sizeOfChessboard - 1- position.getX(),
+                sizeOfChessboard - 1- position.getY());
     }
 
     /**
@@ -137,7 +179,6 @@ public class KnightTourProblem {
         }
         return availablePositions;
     }
-
 
     /**
      * find position with minimum chances to move by using Warnsdorff`s algorithm

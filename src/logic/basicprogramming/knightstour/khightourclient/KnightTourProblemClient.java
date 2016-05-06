@@ -8,7 +8,7 @@ import logic.basicprogramming.knightstour.khightstoursolution.KnightTourProblem;
 public class KnightTourProblemClient {
 
     public static void main(String[] args) {
-        testAll();
+        testPosition(0, 7);
     }
 
     public static void testAll(){
@@ -23,6 +23,7 @@ public class KnightTourProblemClient {
     }
 
     public static void testPosition(int x, int y){
+
         new KnightTourProblem().getResult(x, y);
     }
 }
