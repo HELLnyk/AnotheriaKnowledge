@@ -49,10 +49,14 @@ public class MagicSquareProblem{
                 constructList.add(listOfKeyIndex, massBasedOnIndex(listOfKey[listOfKeyIndex], basedArray));
             }
             int[] constructArray = getConstructArray(constructList);
-            int[][] matrix = setToMagic(constructArray);
-            if(isMagicSquare(matrix)){
-                total++;
-                FileWriter.writeMatrix(matrix, total);
+            for (int row = 0; row < dimension; row++) {
+                for (int column = 0; column < dimension; column++) {
+                    int[][] matrix = someMatrix(constructArray, row, column);
+                    if(isMagicSquare(matrix)){
+                        total++;
+                        FileWriter.writeMatrix(matrix, total);
+                    }
+                }
             }
         }
         System.out.println(total);
@@ -79,10 +83,66 @@ public class MagicSquareProblem{
         return pathMass;
     }
 
-    private int[][] setToMagic(int [] arrayNumbers){
+    private int[][] someMatrix(int[] arrayNumbers, int x, int y){
+        int capasity = (int)Math.sqrt(arrayNumbers.length);
+        int rowIndex = x;
+        int columnIndex = y;
+        int[][] matrix = new int[capasity][capasity];
+
+        matrix[rowIndex][columnIndex] = arrayNumbers[0];
+
+        for(int i = 1; i < arrayNumbers.length; i++){
+
+            rowIndex -= 1;
+            columnIndex += 1;
+
+            if(isTopOutBoard(rowIndex)){
+                if(isRightOut(columnIndex, capasity)){
+                    if(matrix[capasity-1][0] == 0){
+                        rowIndex = capasity - 1;
+                        columnIndex = 0;
+                    }
+                    else {
+                        rowIndex += 2;
+                        columnIndex -=1;
+                    }
+                }
+
+                ///
+                else if(matrix[capasity-1][columnIndex] != 0){
+                    rowIndex += 2;
+                    columnIndex -= 1;
+                }
+                else {
+                    rowIndex = capasity -1;
+                }
+                ///
+            }
+
+            if(isRightOut(columnIndex, capasity)){
+                if(matrix[rowIndex][0] != 0){
+                    rowIndex += 2;
+                    columnIndex -= 1;
+                }
+                else {
+                    columnIndex = 0;
+                }
+            }
+
+            if(matrix[rowIndex][columnIndex] != 0){
+                rowIndex += 2;
+                columnIndex -= 1;
+            }
+            matrix[rowIndex][columnIndex] = arrayNumbers[i];
+        }
+
+        return matrix;
+    }
+
+    private int[][] setToMagic(int [] arrayNumbers, int xStartCoordinate, int yStartCoordinate){
         int capacity = (int)Math.sqrt(arrayNumbers.length);
-        int rowIndex = 0;
-        int columnIndex = capacity/2;
+        int rowIndex = xStartCoordinate;
+        int columnIndex = yStartCoordinate;
         int[][] matrix = new int[capacity][capacity];
 
         for (int elementFromArray: arrayNumbers) {
@@ -90,16 +150,35 @@ public class MagicSquareProblem{
             rowIndex -= 1;
             columnIndex += 1;
             if(isTopOutBoard(rowIndex)){
-                if(isRightOut(columnIndex, capacity)){
+                //if(matrix[capacity-1][columnIndex] == 0){
+                    if(isRightOut(columnIndex, capacity)){
+                        rowIndex = capacity -1;
+                        columnIndex = 0;
+                    }
+                    else {
+                        if(matrix[capacity-1][columnIndex] != 0){
+                            rowIndex += 2;
+                            columnIndex -= 1;
+                        }
+                        else {
+                            rowIndex = capacity-1;
+                        }
+                    }
+//                }
+//                else {
+//                    rowIndex += 2;
+//                    columnIndex -= 1;
+//                }
+            }
+            if(isRightOut(columnIndex, capacity)){
+                //подивитися чи матриця від capasity 0 занята
+                if(matrix[rowIndex][0] == 0) {
+                    columnIndex = 0;
+                }
+                else {
                     rowIndex += 2;
                     columnIndex -= 1;
                 }
-                else {
-                    rowIndex = capacity-1;
-                }
-            }
-            if(isRightOut(columnIndex, capacity)){
-                columnIndex = 0;
             }
             if(matrix[rowIndex][columnIndex] != 0){
                 rowIndex += 2;
