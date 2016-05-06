@@ -89,7 +89,7 @@ public class KnightTourProblem {
     }
 
     /**
-     * find recursive closed way for knight on the chessboard
+     * find recursive way for knight on the chessboard
      *
      * @param currentPosition
      *      current position of the knight for which searching next move
@@ -103,11 +103,7 @@ public class KnightTourProblem {
         moves[move] = currentPosition;
         visitedCells[currentPosition.getX()][currentPosition.getY()] = true;
 
-        Position symmetricPosition = getSymmetricPosition(currentPosition);
-        moves[move + symmetricCourse] = symmetricPosition;
-        visitedCells[symmetricPosition.getX()][symmetricPosition.getY()] = true;
-
-        if (move == ((sizeOfChessboard * sizeOfChessboard - 1))/2 && isMoveToCloseWay()) {
+        if (move == (sizeOfChessboard * sizeOfChessboard - 1)) {
                printResult();
                return true;
         } else {
@@ -122,9 +118,6 @@ public class KnightTourProblem {
                 }
             }
         }
-        visitedCells[symmetricPosition.getX()][symmetricPosition.getY()] = false;
-        moves[move + symmetricCourse] = null;
-
         visitedCells[currentPosition.getX()][currentPosition.getY()] = false;
         moves[move] = null;
         return false;
