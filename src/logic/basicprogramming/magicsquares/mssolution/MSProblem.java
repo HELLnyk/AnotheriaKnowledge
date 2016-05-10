@@ -1,5 +1,8 @@
 package logic.basicprogramming.magicsquares.mssolution;
 
+import java.util.List;
+import java.util.Arrays;
+
 /**
  * @author hellnyk
  */
@@ -8,47 +11,57 @@ public class MSProblem {
     private int capacityOfSquare;
     private int totalResultOfMagicSquare = 0;
     private int magicConstant;
-    private int[][] matrix;
+    private int capacityOfMass;
+    private int[] someArray;
 
-    public MSProblem(){
-        this.capacityOfSquare = 5;
-        magicConstant = setMagicConstant();
-        matrix = new int[5][5];
-    }
     public MSProblem(int capacityOfSquare){
         this.capacityOfSquare = capacityOfSquare;
         magicConstant = setMagicConstant();
-        matrix = new int[capacityOfSquare][capacityOfSquare];
+        capacityOfMass = capacityOfSquare * capacityOfSquare;
+        someArray = new int[capacityOfMass];
     }
 
-    public int[][] fillMagicSquare(int[] arrayForFill, int counterOfRowAndColumn, int startIndex){
+
+    public void findResult(){
+
+    }
+
+    private int[] initArray(){
+        int [] array = new int[capacityOfSquare*capacityOfSquare];
+        for (int index = 0; index < capacityOfSquare * capacityOfSquare; index++) {
+            array[index] = index + 1;
+        }
+        return array;
+    }
+
+    private int[][] fillMagicSquare(int[][] matrixForFill, int[] arrayFromFill, int counterOfRowAndColumn, int startIndex){
         if(counterOfRowAndColumn == capacityOfSquare){
-            if(isSameDiagonals()) {
-                return matrix;
+            if(isSameDiagonals(matrixForFill)) {
+                return matrixForFill;
             }else
                 return new int[1][1];
         }else {
             int valueOfNeededElements = (2*capacityOfSquare - 1) - 2*counterOfRowAndColumn;
-            int[] currentColumnArray = new int[matrix[counterOfRowAndColumn].length];
+            int[] currentColumnArray = new int[matrixForFill[counterOfRowAndColumn].length];
 
 
-            matrix[counterOfRowAndColumn][counterOfRowAndColumn] = arrayForFill[startIndex];
+            matrixForFill[counterOfRowAndColumn][counterOfRowAndColumn] = arrayFromFill[startIndex];
 
             int index = counterOfRowAndColumn + 1;
-            for (int counterForCopy = 1; counterForCopy <= (valueOfNeededElements -1) / 2; counterForCopy++){
-                matrix[counterOfRowAndColumn][index] = arrayForFill[startIndex + counterForCopy];
-                matrix[index][counterOfRowAndColumn] = arrayForFill[startIndex + (valueOfNeededElements -1)/2 + counterForCopy];
+            for (int counterForCopy = 1; counterForCopy < valueOfNeededElements; counterForCopy++){
+                matrixForFill[counterOfRowAndColumn][index] = arrayFromFill[startIndex + counterForCopy++];
+                matrixForFill[index][counterOfRowAndColumn] = arrayFromFill[startIndex + counterForCopy];
                 index++;
             }
 
             for (int indexInColumn = 0; indexInColumn < currentColumnArray.length; indexInColumn++) {
-                currentColumnArray[indexInColumn] = matrix[indexInColumn][counterOfRowAndColumn];
+                currentColumnArray[indexInColumn] = matrixForFill[indexInColumn][counterOfRowAndColumn];
             }
 
 
-            if(isMagicArray(matrix[counterOfRowAndColumn]) && isMagicArray(currentColumnArray)) {
+            if(isMagicArray(matrixForFill[counterOfRowAndColumn]) && isMagicArray(currentColumnArray)) {
                 startIndex += valueOfNeededElements;
-                return fillMagicSquare(arrayForFill, counterOfRowAndColumn + 1, startIndex);
+                return fillMagicSquare(matrixForFill, arrayFromFill, counterOfRowAndColumn + 1, startIndex);
             }else {
                 return new int[1][1];
             }
@@ -59,12 +72,12 @@ public class MSProblem {
         return (capacityOfSquare *(capacityOfSquare*capacityOfSquare + 1)) / 2;
     }
 
-    private boolean isSameDiagonals(){
+    private boolean isSameDiagonals(int[][] matrixRes){
         int sumDOne = 0;
         int sumDTwo = 0;
         for (int index = 0; index < capacityOfSquare; index++) {
-            sumDOne += matrix[index][index];
-            sumDTwo += matrix[matrix.length - 1 - index][index];
+            sumDOne += matrixRes[index][index];
+            sumDTwo += matrixRes[matrixRes.length - 1 - index][index];
         }
         return sumDOne == sumDTwo;
     }
