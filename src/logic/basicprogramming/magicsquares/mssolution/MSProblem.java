@@ -23,7 +23,13 @@ public class MSProblem {
 
 
     public void findResult(){
-
+        for (int values = 1; values <= capacityOfMass; values++) {
+            int[][] matrix = fillMagicSquare(new int[capacityOfSquare][capacityOfSquare], values, 0,0);
+            if(matrix.length == capacityOfSquare){
+                totalResultOfMagicSquare++;
+                FileWriter.writeMatrix(matrix, totalResultOfMagicSquare);
+            }
+        }
     }
 
     private int[] initArray(){
@@ -34,7 +40,14 @@ public class MSProblem {
         return array;
     }
 
-    private int[][] fillMagicSquare(int[][] matrixForFill, int[] arrayFromFill, int counterOfRowAndColumn, int startIndex){
+    private int getNextStartValue(int value){
+        if(value == capacityOfMass + 1){
+            value = 1;
+        }
+        return value % (capacityOfMass + 1);
+    }
+
+    private int[][] fillMagicSquare(int[][] matrixForFill, int startValue, int counterOfRowAndColumn, int startIndex){
         if(counterOfRowAndColumn == capacityOfSquare){
             if(isSameDiagonals(matrixForFill)) {
                 return matrixForFill;
@@ -45,13 +58,16 @@ public class MSProblem {
             int[] currentColumnArray = new int[matrixForFill[counterOfRowAndColumn].length];
 
 
-            matrixForFill[counterOfRowAndColumn][counterOfRowAndColumn] = arrayFromFill[startIndex];
+            matrixForFill[counterOfRowAndColumn][counterOfRowAndColumn] = checkValue(startValue);
+            startValue++;
 
             int index = counterOfRowAndColumn + 1;
             for (int counterForCopy = 1; counterForCopy < valueOfNeededElements; counterForCopy++){
-                matrixForFill[counterOfRowAndColumn][index] = arrayFromFill[startIndex + counterForCopy++];
-                matrixForFill[index][counterOfRowAndColumn] = arrayFromFill[startIndex + counterForCopy];
-                index++;
+                matrixForFill[counterOfRowAndColumn][index] = getNextStartValue(checkValue(startValue));
+                startValue++;
+                counterForCopy++;
+                matrixForFill[index][counterOfRowAndColumn] = getNextStartValue(checkValue(startValue));
+                startValue++;
             }
 
             for (int indexInColumn = 0; indexInColumn < currentColumnArray.length; indexInColumn++) {
@@ -61,11 +77,20 @@ public class MSProblem {
 
             if(isMagicArray(matrixForFill[counterOfRowAndColumn]) && isMagicArray(currentColumnArray)) {
                 startIndex += valueOfNeededElements;
-                return fillMagicSquare(matrixForFill, arrayFromFill, counterOfRowAndColumn + 1, startIndex);
+                return fillMagicSquare(matrixForFill, startValue, counterOfRowAndColumn + 1, startIndex);
             }else {
                 return new int[1][1];
             }
         }
+    }
+
+
+    private int checkValue(int value){
+        if(value == capacityOfMass + 1){
+            value = 1;
+        }
+
+        return value % (capacityOfMass + 1);
     }
 
     private int setMagicConstant(){
