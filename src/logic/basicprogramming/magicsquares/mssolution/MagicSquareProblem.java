@@ -51,11 +51,11 @@ public class MagicSquareProblem{
             int[] constructArray = getConstructArray(constructList);
             for (int row = 0; row < dimension; row++) {
                 for (int column = 0; column < dimension; column++) {
-                    int[][] matrix = someMatrix(constructArray, row, column);
-                    if(isMagicSquare(matrix)){
-                        total++;
-                        FileWriter.writeMatrix(matrix, total);
-                    }
+                    int[][] matrix = simpleMatrix(constructArray, row, column);
+//                    if(isMagicSquare(matrix)){
+//                        total++;
+//                        FileWriter.writeMatrix(matrix, total);
+//                    }
                 }
             }
         }
@@ -139,6 +139,26 @@ public class MagicSquareProblem{
         return matrix;
     }
 
+    private int[][] simpleMatrix(int [] arrayNumbers, int x, int y){
+        int matrix[][] = new int[dimension][dimension];
+        int rowIndex = x;
+        int columnIndex = y;
+        matrix[rowIndex][columnIndex] = arrayNumbers[0];
+
+        for (int i = 1; i < arrayNumbers.length; i++) {
+            rowIndex++;
+            columnIndex++;
+            if(rowIndex >= dimension){
+                rowIndex = 0;
+            }
+            if(columnIndex >= dimension){
+                columnIndex = 0;
+            }
+            matrix[rowIndex][columnIndex] = arrayNumbers[i];
+        }
+        return matrix;
+    }
+
     private int[][] setToMagic(int [] arrayNumbers, int xStartCoordinate, int yStartCoordinate){
         int capacity = (int)Math.sqrt(arrayNumbers.length);
         int rowIndex = xStartCoordinate;
@@ -196,27 +216,27 @@ public class MagicSquareProblem{
         return columnIndex >= dimension;
     }
 
-    private boolean isMagicSquare(int [][] matrix){
-
-        int sumUpDiagonal = 0;
-        int sumDownDiagonal = 0;
-
-        for (int rowIndex = 0; rowIndex < matrix.length; rowIndex++) {
-            int sumInRow = 0;
-            int sumInColumn = 0;
-
-            sumDownDiagonal += matrix[rowIndex][rowIndex];
-            sumUpDiagonal += matrix[matrix.length-rowIndex-1][rowIndex];
-
-            for (int columnIndex = 0; columnIndex < matrix[rowIndex].length; columnIndex++) {
-                sumInRow += matrix[rowIndex][columnIndex];
-                sumInColumn += matrix[columnIndex][rowIndex];
-            }
-            if(sumInRow != sumInColumn)
-                return false;
-        }
-        return sumDownDiagonal == sumUpDiagonal;
-    }
+//    private boolean isMagicSquare(int [][] matrix){
+//
+//        int sumUpDiagonal = 0;
+//        int sumDownDiagonal = 0;
+//
+//        for (int rowIndex = 0; rowIndex < matrix.length; rowIndex++) {
+//            int sumInRow = 0;
+//            int sumInColumn = 0;
+//
+//            sumDownDiagonal += matrix[rowIndex][rowIndex];
+//            sumUpDiagonal += matrix[matrix.length-rowIndex-1][rowIndex];
+//
+//            for (int columnIndex = 0; columnIndex < matrix[rowIndex].length; columnIndex++) {
+//                sumInRow += matrix[rowIndex][columnIndex];
+//                sumInColumn += matrix[columnIndex][rowIndex];
+//            }
+//            if(sumInRow != sumInColumn)
+//                return false;
+//        }
+//        return sumDownDiagonal == sumUpDiagonal;
+//    }
 }
 
 
