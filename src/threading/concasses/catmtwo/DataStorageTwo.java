@@ -1,15 +1,19 @@
 package threading.concasses.catmtwo;
 
 import threading.concasses.includes.AbstractDataStorage;
-import threading.concasses.includes.InformationToFile;
 
 import java.util.*;
 
 /**
+ * Saver of information in the {@link HashMap} instance with synchronization
+ *
  * @author hellnyk
  */
 public class DataStorageTwo extends AbstractDataStorage<String, Integer> {
 
+    /**
+     * Default constructor for special initialize instances
+     */
     public DataStorageTwo(){
         Map<String, Integer> hashMap = new HashMap<>();
         map = Collections.synchronizedMap(hashMap);
