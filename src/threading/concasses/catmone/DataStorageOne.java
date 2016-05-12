@@ -10,7 +10,7 @@ import java.util.Collections;
 
 
 /**
- * Saver of information in the {@link HashMap} instance
+ * Saver of information in the {@link HashMap} instance without synchronization
  *
  * @author hellnyk
  */
@@ -22,23 +22,12 @@ public class DataStorageOne extends AbstractDataStorage<String, Integer> {
     private Set<Integer> counters;
 
     /**
-     * Default constructor for initialize instances
+     * Default constructor for special initialize instances
      */
     public DataStorageOne() {
         map = new HashMap<>();
         counters = Collections.synchronizedSet(new HashSet<>());
     }
-
-    /**
-     * Write information to the {@link HashMap} instance
-     *
-     * @param name
-     *      name of current thread, which writes information
-     * @param key
-     *      key for writing
-     * @param value
-     *      value for writing
-     */
 
     public void getInfoToMap(String name, String key, Integer value){
         printResult("thread " + name + " (before)");
