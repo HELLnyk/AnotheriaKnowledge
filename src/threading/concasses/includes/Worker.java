@@ -1,9 +1,12 @@
-package threading.catmone;
+package threading.concasses.includes;
+
+import threading.concasses.catmone.DataStorageOne;
+import threading.concasses.includes.AbstractDataStorage;
 
 import java.util.Random;
 
 /**
- * Worker, which writes information to the {@link DataStorage} instance
+ * Worker, which writes information to the {@link DataStorageOne} instance
  *
  * @author hellnyk
  */
@@ -21,14 +24,14 @@ public class Worker implements Runnable {
     };
 
     /**
-     * {@link DataStorage} instance
+     * {@link DataStorageOne} instance
      */
-    private DataStorage dataStorage;
+    private AbstractDataStorage dataStorage;
 
     /**
      * name of worker
      */
-    private String name;
+    private String name = "Worker_id_";
 
     /**
      * {@link Thread} instance
@@ -39,21 +42,21 @@ public class Worker implements Runnable {
      * Default constructor
      *
      * @param dataStorage
-     *      {@link DataStorage} instance, which will be used by this worker
-     * @param name
+     *      {@link DataStorageOne} instance, which will be used by this worker
+     * @param nameId
      *      name of worker
      */
-    public Worker(DataStorage dataStorage, String name) {
+    public Worker(AbstractDataStorage dataStorage, String nameId) {
         this.dataStorage = dataStorage;
-        this.name = name;
+        name += nameId;
         thread = new Thread(this, name);
     }
 
     @Override
     public void run() {
         for(String key: DIFFERENT_KEYS){
-            int value = setInfo();
-            dataStorage.setInformationToMap(name, key, value);
+
+            dataStorage.getInfoToMap(name, key, setInfo());
             try {
                 Thread.sleep(1000);
             }catch (InterruptedException e){
