@@ -1,6 +1,11 @@
 package threading.catmone;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Collections;
+
 
 /**
  * Saver of information in the {@link HashMap} instance
@@ -39,7 +44,7 @@ public class DataStorage {
      */
     public DataStorage() {
         someMap = new HashMap<>();
-        counters = new HashSet<>();
+        counters = Collections.synchronizedSet(new HashSet<>());
     }
 
     /**
