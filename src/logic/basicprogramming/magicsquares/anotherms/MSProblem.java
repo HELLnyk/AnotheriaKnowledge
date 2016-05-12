@@ -94,4 +94,39 @@ public class MSProblem {
         }
         return sumDownDiagonal == sumUpDiagonal;
     }
+
+
+
+    private int[] goodRow(int rowIndex){
+        for (int element = 1; element <= capacityOfElements; element++) {
+            int[] someRow = new int[capacityOfSquare];
+            int incElement = element;
+            for (int inRow = 0; rowIndex < capacityOfSquare; rowIndex++) {
+                someRow[inRow] = getNextStartValue(incElement++);
+                if(isMagicArray(someRow)){
+                    return someRow;
+                }
+            }
+        }
+        return new int[1];
+    }
+
+    private int getNextStartValue(int value){
+        if(value >= capacityOfElements + 1){
+            value++;
+        }
+        return value % (capacityOfElements + 1);
+    }
+
+    private int setMagicConstant(){
+        return (capacityOfSquare *(capacityOfSquare*capacityOfSquare + 1)) / 2;
+    }
+
+    private boolean isMagicArray(int[] array){
+        int sum = 0;
+        for(int element: array){
+            sum += element;
+        }
+        return setMagicConstant() == sum;
+    }
 }
