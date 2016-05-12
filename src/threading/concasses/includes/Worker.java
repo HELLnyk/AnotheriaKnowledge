@@ -1,12 +1,11 @@
 package threading.concasses.includes;
 
 import threading.concasses.catmone.DataStorageOne;
-import threading.concasses.includes.AbstractDataStorage;
 
 import java.util.Random;
 
 /**
- * Worker, which writes information to the {@link DataStorageOne} instance
+ * Worker, which writes information to the {@link AbstractDataStorage} instance
  *
  * @author hellnyk
  */
@@ -42,7 +41,7 @@ public class Worker implements Runnable {
      * Default constructor
      *
      * @param dataStorage
-     *      {@link DataStorageOne} instance, which will be used by this worker
+     *      {@link AbstractDataStorage} instance, which will be used by this worker
      * @param nameId
      *      name of worker
      */
