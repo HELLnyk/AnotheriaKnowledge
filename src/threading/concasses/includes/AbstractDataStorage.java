@@ -3,6 +3,8 @@ package threading.concasses.includes;
 import java.util.Map;
 
 /**
+ * Main class for realization of adding elements to {@link Map}
+ *
  * @author hellnyk
  */
 public abstract class AbstractDataStorage<K,V> {
@@ -50,8 +52,14 @@ public abstract class AbstractDataStorage<K,V> {
     public abstract void getInfoToMap(String name, K key, V value);
 
 
+    /**
+     * print result of adding elements to {@link Map} to txt file
+     *
+     * @param when
+     *      "name of thread with "before" or "after" parameter of adding
+     */
     protected void printResult(String when){
-        StringBuffer sb = new StringBuffer(when + " ");
+        StringBuilder sb = new StringBuilder(when + " ");
         for(Map.Entry entry: map.entrySet()){
             sb.append("key: " + entry.getKey() + " value: " + entry.getValue());
         }
