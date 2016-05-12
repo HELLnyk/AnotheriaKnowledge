@@ -7,6 +7,7 @@ import threading.concasses.includes.Worker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * represents work of {@link DataStorageOne} and {@link Worker} instances
@@ -19,6 +20,14 @@ public class Client {
         testStorage(FactoryDataStorage.getDataStorage(FactoryDataStorage.DATA_STORAGE_THREE));
     }
 
+    /**
+     * test of adding information to some {@link Map}
+     *
+     * @param dataStore
+     *      {@link AbstractDataStorage} instance
+     *
+     * @throws InterruptedException
+     */
     private static void testStorage(AbstractDataStorage dataStore) throws InterruptedException{
         List<Worker> workers = new ArrayList<>();
         for (int creatorId = 1; creatorId <= 5; creatorId++) {
