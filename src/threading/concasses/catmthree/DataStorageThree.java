@@ -8,17 +8,14 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author hellnyk
  */
-public class DataStorageThree extends AbstractDataStorage<String, Integer> {
+public class DataStorageThree extends AbstractDataStorage<Integer, String> {
 
     public DataStorageThree(){
         map = new ConcurrentHashMap<>();
     }
 
     @Override
-    public void getInfoToMap(String name, String key, Integer value) {
-        printResult("thread " + name + " (before)");
-        map.put(key, value);
-        counterWriting++;
-        printResult("thread " + name + " (after)");
+    public void getInfoToMap(String name, Integer key, String value) {
+        super.getInfoToMap(name, key, value);
     }
 }
