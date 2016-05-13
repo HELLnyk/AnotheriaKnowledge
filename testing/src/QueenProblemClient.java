@@ -1,6 +1,4 @@
-package logic.basicprogramming.eightqueenproblems.eightqueenclient;
-
-import logic.basicprogramming.eightqueenproblems.eightqueensolution.QueenProblem;
+import eightqueensolution.QueenProblem;
 
 /**
  * Test QueenProblem

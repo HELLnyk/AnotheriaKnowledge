@@ -1,4 +1,4 @@
-package logic.basicprogramming.knightstour.khightstoursolution;
+package khightstoursolution;
 
 import java.util.ArrayList;
 import java.util.List;

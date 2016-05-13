@@ -1,4 +1,4 @@
-package logic.basicprogramming.eightqueenproblems.eightqueensolution;
+package eightqueensolution;
 
 /**
  * Solution of queens problem

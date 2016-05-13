@@ -1,8 +1,6 @@
-package threading.concasses;
-
-import threading.concasses.includes.AbstractDataStorage;
-import threading.concasses.includes.FactoryDataStorage;
-import threading.concasses.includes.Worker;
+import includes.AbstractDataStorage;
+import includes.FactoryDataStorage;
+import includes.Worker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
  *
  * @author hellnyk
  */
-public class Client {
+public class ConcurAssesClient {
 
     public static void main(String[] args) throws InterruptedException {
         testStorage(FactoryDataStorage.getDataStorage(FactoryDataStorage.DATA_STORAGE_ONE));

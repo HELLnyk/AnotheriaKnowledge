@@ -1,6 +1,4 @@
-package logic.basicprogramming.knightstour.khightourclient;
-
-import logic.basicprogramming.knightstour.khightstoursolution.KnightTourProblem;
+import khightstoursolution.KnightTourProblem;
 
 /**
  * @author hellnyk

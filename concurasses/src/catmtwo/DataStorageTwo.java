@@ -1,6 +1,6 @@
-package threading.concasses.catmtwo;
+package catmtwo;
 
-import threading.concasses.includes.AbstractDataStorage;
+import includes.AbstractDataStorage;
 
 import java.util.*;
 

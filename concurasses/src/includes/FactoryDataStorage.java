@@ -1,8 +1,8 @@
-package threading.concasses.includes;
+package includes;
 
-import threading.concasses.catmone.DataStorageOne;
-import threading.concasses.catmthree.DataStorageThree;
-import threading.concasses.catmtwo.DataStorageTwo;
+import catmone.DataStorageOne;
+import catmthree.DataStorageThree;
+import catmtwo.DataStorageTwo;
 
 import java.util.Map;
 

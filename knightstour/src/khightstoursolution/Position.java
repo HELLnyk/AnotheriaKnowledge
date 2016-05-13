@@ -1,4 +1,4 @@
-package logic.basicprogramming.knightstour.khightstoursolution;
+package khightstoursolution;
 
 /**
  * @author hellnyk

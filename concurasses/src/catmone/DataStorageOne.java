@@ -1,6 +1,6 @@
-package threading.concasses.catmone;
+package catmone;
 
-import threading.concasses.includes.AbstractDataStorage;
+import includes.AbstractDataStorage;
 
 import java.util.HashMap;
 

@@ -1,6 +1,6 @@
-package threading.concasses.catmthree;
+package catmthree;
 
-import threading.concasses.includes.AbstractDataStorage;
+import includes.AbstractDataStorage;
 
 import java.util.concurrent.ConcurrentHashMap;
 
