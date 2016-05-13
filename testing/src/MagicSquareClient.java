@@ -1,9 +1,10 @@
-package logic.basicprogramming.magicsquares.anotherms;
+import anotherms.MSProblem;
+//import mssolution.MSProblem;
 
 /**
  * @author hellnyk
  */
-public class Cient {
+public class MagicSquareClient {
 
     private static final int DEFAULT_CAPACITY_OF_SQUARE = 5;
 
@@ -11,3 +12,5 @@ public class Cient {
         new MSProblem(DEFAULT_CAPACITY_OF_SQUARE).getRes();
     }
 }
+
+
