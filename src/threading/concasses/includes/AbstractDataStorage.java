@@ -1,5 +1,6 @@
 package threading.concasses.includes;
 
+import java.util.ConcurrentModificationException;
 import java.util.Map;
 
 /**
@@ -60,8 +61,13 @@ public abstract class AbstractDataStorage<K,V> {
      */
     protected void printResult(String when){
         StringBuilder sb = new StringBuilder(when + " ");
-        for(Map.Entry entry: map.entrySet()){
-            sb.append("key: " + entry.getKey() + " value: " + entry.getValue());
+        try {
+            for(Map.Entry entry: map.entrySet()){
+                sb.append("key: " + entry.getKey() + " value: " + entry.getValue());
+            }
+        }catch (ConcurrentModificationException e){
+            InformationToFile.write(FILE_ERROR, "Concurrent modification exeption");
+            Runtime.getRuntime().exit(-100);
         }
         sb.append("\n");
         InformationToFile.write(FILE_WRITE, sb.toString());
