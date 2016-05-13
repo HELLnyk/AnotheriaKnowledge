@@ -17,7 +17,11 @@ import java.util.Map;
 public class Client {
 
     public static void main(String[] args) throws InterruptedException {
-        testStorage(FactoryDataStorage.getDataStorage(FactoryDataStorage.DATA_STORAGE_THREE));
+        for (int i = 0; i < 100; i++) {
+            System.out.println(i+1);
+            testStorage(FactoryDataStorage.getDataStorage(FactoryDataStorage.DATA_STORAGE_ONE));
+        }
+ //       testStorage(FactoryDataStorage.getDataStorage(FactoryDataStorage.DATA_STORAGE_ONE));
     }
 
     /**
@@ -30,7 +34,7 @@ public class Client {
      */
     private static void testStorage(AbstractDataStorage dataStore) throws InterruptedException{
         List<Worker> workers = new ArrayList<>();
-        for (int creatorId = 1; creatorId <= 5; creatorId++) {
+        for (int creatorId = 1; creatorId <= 1000; creatorId++) {
             workers.add(new Worker(dataStore, "" + creatorId));
         }
 
@@ -42,11 +46,13 @@ public class Client {
             worker.getThread().join();
         }
 
-        if(workers.size() * Worker.DIFFERENT_KEYS.length != dataStore.getCounterWriting()){
-            int ione = workers.size() * Worker.DIFFERENT_KEYS.length;
-            int itwo = dataStore.getCounterWriting();
-            System.out.println("Values: needed to write: " + ione + " were written: " + itwo);
-            System.out.println("Incorrect writing. See hashmapWrite.txt and hashmapWriteError.txt  file for details");
-        }
+        System.out.println("See hashmapWrite.txt and hashmapWriteError.txt  file for details");
+
+//        if(workers.size() * Worker.DIFFERENT_KEYS.length != dataStore.getCounterWriting()){
+//            int ione = workers.size() * Worker.DIFFERENT_KEYS.length;
+//            int itwo = dataStore.getCounterWriting();
+//            System.out.println("Values: needed to write: " + ione + " were written: " + itwo);
+//            System.out.println("Incorrect writing. See hashmapWrite.txt and hashmapWriteError.txt  file for details");
+//        }
     }
 }
