@@ -54,13 +54,12 @@ public class Worker implements Runnable {
     @Override
     public void run() {
         for(String key: DIFFERENT_KEYS){
-
             dataStorage.getInfoToMap(name, key, setInfo());
-            try {
-                Thread.sleep(1000);
-            }catch (InterruptedException e){
-                throw new RuntimeException();
-            }
+//            try {
+//                Thread.sleep(1000);
+//            }catch (InterruptedException e){
+//                throw new RuntimeException();
+//            }
         }
     }
 
