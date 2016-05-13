@@ -1,12 +1,8 @@
 package threading.concasses.catmone;
 
 import threading.concasses.includes.AbstractDataStorage;
-import threading.concasses.includes.InformationToFile;
 
-import java.util.Set;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Collections;
 
 
 /**
@@ -17,7 +13,7 @@ import java.util.Collections;
 public class DataStorageOne extends AbstractDataStorage<Integer, String> {
 
     /**
-     * Default constructor for initialize instances
+     * Default constructor for initialize {@link java.util.Map} instance
      */
     public DataStorageOne() {
         map = new HashMap<>();
@@ -29,9 +25,9 @@ public class DataStorageOne extends AbstractDataStorage<Integer, String> {
      * @param name
      *      name of current thread, which writes information
      * @param key
-     *      key for writing
+     *      {@link Integer} instance of the key for writing
      * @param value
-     *      value for writing
+     *      {@link String} instance value for writing
      */
     @Override
     public void getInfoToMap(String name, Integer key, String value){
