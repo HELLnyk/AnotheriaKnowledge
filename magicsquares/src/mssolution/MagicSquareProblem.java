@@ -1,4 +1,4 @@
-package logic.basicprogramming.magicsquares.mssolution;
+package mssolution;
 
 import java.util.*;
 

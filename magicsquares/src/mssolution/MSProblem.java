@@ -1,7 +1,4 @@
-package logic.basicprogramming.magicsquares.mssolution;
-
-import java.util.List;
-import java.util.Arrays;
+package mssolution;
 
 /**
  * @author hellnyk
