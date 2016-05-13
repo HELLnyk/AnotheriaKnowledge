@@ -1,6 +1,5 @@
 package threading.concasses;
 
-import threading.concasses.catmone.DataStorageOne;
 import threading.concasses.includes.AbstractDataStorage;
 import threading.concasses.includes.FactoryDataStorage;
 import threading.concasses.includes.Worker;
@@ -9,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * represents work of {@link DataStorageOne} and {@link Worker} instances
+ * represents work of {@link AbstractDataStorage} and {@link Worker} instances
  *
  * @author hellnyk
  */
 public class Client {
 
     public static void main(String[] args) throws InterruptedException {
-        testStorage(FactoryDataStorage.getDataStorage(FactoryDataStorage.DATA_STORAGE_THREE));
+        testStorage(FactoryDataStorage.getDataStorage(FactoryDataStorage.DATA_STORAGE_ONE));
     }
 
     private static void testStorage(AbstractDataStorage dataStore) throws InterruptedException{
@@ -33,11 +32,6 @@ public class Client {
             worker.getThread().join();
         }
 
-        if(workers.size() * Worker.DIFFERENT_KEYS.length != dataStore.getCounterWriting()){
-            int ione = workers.size() * Worker.DIFFERENT_KEYS.length;
-            int itwo = dataStore.getCounterWriting();
-            System.out.println("Values: needed to write: " + ione + " were written: " + itwo);
-            System.out.println("Incorrect writing. See hashmapWrite.txt and hashmapWriteError.txt  file for details");
-        }
+        System.out.println("See files hashmapWrite.txt for details");
     }
 }
