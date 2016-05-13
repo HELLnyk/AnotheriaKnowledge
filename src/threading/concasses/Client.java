@@ -1,40 +1,26 @@
 package threading.concasses;
 
-import threading.concasses.catmone.DataStorageOne;
 import threading.concasses.includes.AbstractDataStorage;
 import threading.concasses.includes.FactoryDataStorage;
 import threading.concasses.includes.Worker;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
- * represents work of {@link DataStorageOne} and {@link Worker} instances
+ * represents work of {@link AbstractDataStorage} and {@link Worker} instances
  *
  * @author hellnyk
  */
 public class Client {
 
     public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < 100; i++) {
-            System.out.println(i+1);
-            testStorage(FactoryDataStorage.getDataStorage(FactoryDataStorage.DATA_STORAGE_ONE));
-        }
- //       testStorage(FactoryDataStorage.getDataStorage(FactoryDataStorage.DATA_STORAGE_ONE));
+        testStorage(FactoryDataStorage.getDataStorage(FactoryDataStorage.DATA_STORAGE_ONE));
     }
 
-    /**
-     * test of adding information to some {@link Map}
-     *
-     * @param dataStore
-     *      {@link AbstractDataStorage} instance
-     *
-     * @throws InterruptedException
-     */
     private static void testStorage(AbstractDataStorage dataStore) throws InterruptedException{
         List<Worker> workers = new ArrayList<>();
-        for (int creatorId = 1; creatorId <= 1000; creatorId++) {
+        for (int creatorId = 1; creatorId <= 5; creatorId++) {
             workers.add(new Worker(dataStore, "" + creatorId));
         }
 
@@ -46,13 +32,6 @@ public class Client {
             worker.getThread().join();
         }
 
-        System.out.println("See hashmapWrite.txt and hashmapWriteError.txt  file for details");
-
-//        if(workers.size() * Worker.DIFFERENT_KEYS.length != dataStore.getCounterWriting()){
-//            int ione = workers.size() * Worker.DIFFERENT_KEYS.length;
-//            int itwo = dataStore.getCounterWriting();
-//            System.out.println("Values: needed to write: " + ione + " were written: " + itwo);
-//            System.out.println("Incorrect writing. See hashmapWrite.txt and hashmapWriteError.txt  file for details");
-//        }
+        System.out.println("See files hashmapWrite.txt for details");
     }
 }

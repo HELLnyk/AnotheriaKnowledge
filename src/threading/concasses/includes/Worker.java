@@ -1,7 +1,5 @@
 package threading.concasses.includes;
 
-import threading.concasses.catmone.DataStorageOne;
-
 import java.util.Random;
 
 /**
@@ -12,18 +10,29 @@ import java.util.Random;
 public class Worker implements Runnable {
 
     /**
-     * default keys for writing
+     * capacity of how mach values will be put
      */
-    public static final String[] DIFFERENT_KEYS = {
-            "keyOne",
-            "keyTwo",
-            "keyThree",
-            "keyFour",
-            "keyFive",
-    };
+    private static final int DIFFERENT_VALUES_AMOUNT = 100000;
 
     /**
-     * {@link DataStorageOne} instance
+     * default length of every value
+     */
+    private static final int DIFFERENT_VALUE_LENGTH = 100;
+
+    /**
+     * array of {@link String} values
+     */
+    private static final String[] DIFFERENT_VALUES;
+
+    /**
+     *initialization of values
+     */
+    static {
+        DIFFERENT_VALUES = generateString();
+    }
+
+    /**
+     * {@link AbstractDataStorage} instance
      */
     private AbstractDataStorage dataStorage;
 
@@ -53,14 +62,31 @@ public class Worker implements Runnable {
 
     @Override
     public void run() {
-        for(String key: DIFFERENT_KEYS){
-            dataStorage.getInfoToMap(name, key, setInfo());
-//            try {
-//                Thread.sleep(1000);
-//            }catch (InterruptedException e){
-//                throw new RuntimeException();
-//            }
+        int counter = 1;
+        for(String key: DIFFERENT_VALUES){
+            dataStorage.getInfoToMap(name, counter, key);
+            counter++;
         }
+    }
+
+    /**
+     * generate different {@link String} values
+     *
+     * @return
+     *      array of {@link String} values
+     */
+    private static String[] generateString(){
+        String[] mass = new String[DIFFERENT_VALUES_AMOUNT];
+        Random random = new Random();
+        String elements = "ABCDEFGHIJKLMNOPQRSTUYWXVZ";
+        for (int key = 0; key < DIFFERENT_VALUES_AMOUNT; key++) {
+            char massChar[] = new char[DIFFERENT_VALUE_LENGTH];
+            for (int letter = 0; letter < DIFFERENT_VALUE_LENGTH; letter++) {
+                massChar[letter] = elements.charAt(random.nextInt(elements.length()));
+            }
+            mass[key] = new String(massChar);
+        }
+        return mass;
     }
 
     /**
