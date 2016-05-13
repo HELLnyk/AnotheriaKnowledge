@@ -14,19 +14,13 @@ import java.util.Collections;
  *
  * @author hellnyk
  */
-public class DataStorageOne extends AbstractDataStorage<String, Integer> {
-
-    /**
-     * {@link Set} instance of unique writing
-     */
-    private Set<Integer> counters;
+public class DataStorageOne extends AbstractDataStorage<Integer, String> {
 
     /**
      * Default constructor for initialize instances
      */
     public DataStorageOne() {
         map = new HashMap<>();
-        counters = Collections.synchronizedSet(new HashSet<>());
     }
 
     /**
@@ -39,14 +33,8 @@ public class DataStorageOne extends AbstractDataStorage<String, Integer> {
      * @param value
      *      value for writing
      */
-
-    public void getInfoToMap(String name, String key, Integer value){
-        printResult("thread " + name + " (before)");
-        map.put(key, value);
-        printResult("thread " + name + " (after)");
-        counterWriting++;
-        if(!counters.add(counterWriting)){
-            InformationToFile.write(FILE_ERROR, name + " and another thread trying to put elements in the map at the same time");
-        }
+    @Override
+    public void getInfoToMap(String name, Integer key, String value){
+        super.getInfoToMap(name, key, value);
     }
 }
