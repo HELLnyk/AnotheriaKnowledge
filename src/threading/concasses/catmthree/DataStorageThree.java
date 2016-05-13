@@ -21,8 +21,7 @@ public class DataStorageThree extends AbstractDataStorage<String, Integer> {
     @Override
     public void getInfoToMap(String name, String key, Integer value) {
         printResult("thread " + name + " (before)");
-        map.put(key, value);
-        counterWriting++;
+        map.putIfAbsent(key, value);
         printResult("thread " + name + " (after)");
     }
 }
