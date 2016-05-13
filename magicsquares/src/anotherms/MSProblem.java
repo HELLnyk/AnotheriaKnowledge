@@ -1,6 +1,6 @@
-package logic.basicprogramming.magicsquares.anotherms;
+package anotherms;
 
-import logic.basicprogramming.magicsquares.mssolution.FileWriter;
+import mssolution.FileWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,26 +41,26 @@ public class MSProblem {
 
 
     public void getRes(){
-        int peres = 0;
         for(Cellule celluleForSwap: cellulesList){
             for (Cellule celluleSwap: cellulesList){
                 if(celluleSwap == celluleForSwap){
                     continue;
                 }
                 int[][] changeMatrix = copyMatrix();
+                int temp =
                 changeMatrix[celluleForSwap.getPositionHorizontal()][celluleForSwap.getPositionVertical()] =
                         celluleSwap.getStateValue();
                 changeMatrix[celluleSwap.getPositionHorizontal()][celluleSwap.getPositionVertical()] =
                         celluleForSwap.getStateValue();
 
+                show(changeMatrix);
+
                 if(isMagicSquare(changeMatrix)){
                     totalResult++;
                     FileWriter.writeMatrix(changeMatrix, totalResult);
                 }
-                peres++;
             }
         }
-        System.out.println(peres);
     }
 
     private int[][] copyMatrix(){
@@ -128,5 +128,14 @@ public class MSProblem {
             sum += element;
         }
         return setMagicConstant() == sum;
+    }
+
+    private void show(int[][] matrix){
+        for (int[] row: baseMatrix){
+            for (int element: row){
+                System.out.print(element + " ");
+            }
+            System.out.println();
+        }
     }
 }

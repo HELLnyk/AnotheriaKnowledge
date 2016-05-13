@@ -1,4 +1,4 @@
-package logic.basicprogramming.magicsquares.anotherms;
+package anotherms;
 
 /**
  * @author hellnyk
@@ -24,40 +24,12 @@ public class Cellule {
         return stateValue;
     }
 
-    public void setStateValue(int stateValue) {
-        this.stateValue = stateValue;
-    }
-
-    public int getElementsBefore() {
-        return elementsBefore;
-    }
-
-    public void setElementsBefore(int elementsBefore) {
-        this.elementsBefore = elementsBefore;
-    }
-
-    public int getElementsAfter() {
-        return elementsAfter;
-    }
-
-    public void setElementsAfter(int elementsAfter) {
-        this.elementsAfter = elementsAfter;
-    }
-
     public int getPositionVertical() {
         return positionVertical;
     }
 
-    public void setPositionVertical(int positionVertical) {
-        this.positionVertical = positionVertical;
-    }
-
     public int getPositionHorizontal() {
         return positionHorizontal;
-    }
-
-    public void setPositionHorizontal(int positionHorizontal) {
-        this.positionHorizontal = positionHorizontal;
     }
 
     @Override
