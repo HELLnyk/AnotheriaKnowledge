@@ -10,8 +10,12 @@ public class QueenProblem {
     /**
      * value, which represents print result such as matrix
      */
-    private static final int PRINT_MATRIX = 0;
+    public static final int PRINT_MATRIX = 0;
 
+    /**
+     * value, which represents print result such as vector
+     */
+    public static final int PRINT_VECTOR = 1;
     /**
      *value of all results of different types of solutions queens problem
      */
@@ -78,10 +82,18 @@ public class QueenProblem {
                 int[] position = searchRecResult(mass, numberOfQueen+1);
                 if(position != null){
                     totalResults++;
-                    if(kindOfPrintResult == PRINT_MATRIX)
-                        printResultMatrix(position);
-                    else
-                        printResultIndex(position);
+//                    if(kindOfPrintResult == PRINT_MATRIX)
+//                        printResultMatrix(position);
+//                    else
+//                        printResultIndex(position);
+                    switch (kindOfPrintResult){
+                        case PRINT_MATRIX:
+                            printResultMatrix(position);
+                            break;
+                        case PRINT_VECTOR:
+                            printResultIndex(position);
+                            break;
+                    }
                 }
             }
         }
@@ -117,7 +129,7 @@ public class QueenProblem {
      *      array with result of positions for queens
      */
     private void printResultIndex(int[] positions){
-        System.out.print("[ ");
+        System.out.print(totalResults + " [ ");
         for(int i: positions){
             System.out.print(i + " ");
         }
