@@ -1,3 +1,5 @@
+package knightstourclient;
+
 import khightstoursolution.KnightTourProblem;
 
 /**
@@ -6,7 +8,7 @@ import khightstoursolution.KnightTourProblem;
 public class KnightTourProblemClient {
 
     public static void main(String[] args) {
-        testAll();
+        testPosition(1,1);
     }
 
     public static void testAll(){
