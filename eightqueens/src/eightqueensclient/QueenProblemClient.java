@@ -10,6 +10,6 @@ import eightqueensolution.QueenProblem;
 public class QueenProblemClient {
 
     public static void main(String[] args) {
-        new QueenProblem(8, 0).searchResult();
+        new QueenProblem(8, QueenProblem.PRINT_VECTOR).searchResult();
     }
 }
