@@ -1,3 +1,5 @@
+package eightqueensclient;
+
 import eightqueensolution.QueenProblem;
 
 /**
