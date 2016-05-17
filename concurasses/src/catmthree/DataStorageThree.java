@@ -1,6 +1,6 @@
 package catmthree;
 
-import includes.AbstractDataStorage;
+import advanced.AbstractDataStorage;
 
 import java.util.concurrent.ConcurrentHashMap;
 

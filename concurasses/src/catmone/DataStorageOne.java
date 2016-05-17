@@ -1,6 +1,6 @@
 package catmone;
 
-import includes.AbstractDataStorage;
+import advanced.AbstractDataStorage;
 
 import java.util.HashMap;
 
