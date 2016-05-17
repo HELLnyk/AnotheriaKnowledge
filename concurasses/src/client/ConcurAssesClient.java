@@ -1,6 +1,8 @@
-import includes.AbstractDataStorage;
-import includes.FactoryDataStorage;
-import includes.Worker;
+package client;
+
+import advanced.AbstractDataStorage;
+import advanced.FactoryDataStorage;
+import advanced.Worker;
 
 import java.util.ArrayList;
 import java.util.List;
