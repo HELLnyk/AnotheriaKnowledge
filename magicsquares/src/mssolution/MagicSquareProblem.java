@@ -42,22 +42,31 @@ public class MagicSquareProblem{
     }
 
     public void getResultBasedOnMagicArray(int[] basedArray){
-        List<int[]> listOfKeys = Reshuffle.getReshuffleList(initArray(dimension));
+        List<int[]> listOfKeys = Reshuffle.getReshuffleList(initArray(dimension*dimension));
         for(int[] listOfKey: listOfKeys){
-            List<int[]> constructList = new ArrayList<>(dimension);
-            for (int listOfKeyIndex = 0; listOfKeyIndex < listOfKey.length; listOfKeyIndex++){
-                constructList.add(listOfKeyIndex, massBasedOnIndex(listOfKey[listOfKeyIndex], basedArray));
-            }
-            int[] constructArray = getConstructArray(constructList);
             for (int row = 0; row < dimension; row++) {
                 for (int column = 0; column < dimension; column++) {
-                    int[][] matrix = simpleMatrix(constructArray, row, column);
+                    int[][] matrix = simpleMatrix(listOfKey, row, column);
+                    if(isMagicSquare(matrix)){
+                        total++;
+                        FileWriter.writeMatrix(matrix, total);
+                    }
+                }
+            }
+//            List<int[]> constructList = new ArrayList<>(dimension);
+//            for (int listOfKeyIndex = 0; listOfKeyIndex < listOfKey.length; listOfKeyIndex++){
+//                constructList.add(listOfKeyIndex, massBasedOnIndex(listOfKey[listOfKeyIndex], basedArray));
+//            }
+//            int[] constructArray = getConstructArray(constructList);
+//            for (int row = 0; row < dimension; row++) {
+//                for (int column = 0; column < dimension; column++) {
+//                    int[][] matrix = simpleMatrix(constructArray, row, column);
 //                    if(isMagicSquare(matrix)){
 //                        total++;
 //                        FileWriter.writeMatrix(matrix, total);
 //                    }
-                }
-            }
+//                }
+//            }
         }
         System.out.println(total);
     }
@@ -216,27 +225,27 @@ public class MagicSquareProblem{
         return columnIndex >= dimension;
     }
 
-//    private boolean isMagicSquare(int [][] matrix){
-//
-//        int sumUpDiagonal = 0;
-//        int sumDownDiagonal = 0;
-//
-//        for (int rowIndex = 0; rowIndex < matrix.length; rowIndex++) {
-//            int sumInRow = 0;
-//            int sumInColumn = 0;
-//
-//            sumDownDiagonal += matrix[rowIndex][rowIndex];
-//            sumUpDiagonal += matrix[matrix.length-rowIndex-1][rowIndex];
-//
-//            for (int columnIndex = 0; columnIndex < matrix[rowIndex].length; columnIndex++) {
-//                sumInRow += matrix[rowIndex][columnIndex];
-//                sumInColumn += matrix[columnIndex][rowIndex];
-//            }
-//            if(sumInRow != sumInColumn)
-//                return false;
-//        }
-//        return sumDownDiagonal == sumUpDiagonal;
-//    }
+    private boolean isMagicSquare(int [][] matrix){
+
+        int sumUpDiagonal = 0;
+        int sumDownDiagonal = 0;
+
+        for (int rowIndex = 0; rowIndex < matrix.length; rowIndex++) {
+            int sumInRow = 0;
+            int sumInColumn = 0;
+
+            sumDownDiagonal += matrix[rowIndex][rowIndex];
+            sumUpDiagonal += matrix[matrix.length-rowIndex-1][rowIndex];
+
+            for (int columnIndex = 0; columnIndex < matrix[rowIndex].length; columnIndex++) {
+                sumInRow += matrix[rowIndex][columnIndex];
+                sumInColumn += matrix[columnIndex][rowIndex];
+            }
+            if(sumInRow != sumInColumn)
+                return false;
+        }
+        return sumDownDiagonal == sumUpDiagonal;
+    }
 }
 
 
