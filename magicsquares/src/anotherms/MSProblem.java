@@ -41,18 +41,20 @@ public class MSProblem {
 
 
     public void getRes(){
+        int k = 0;
         for(Cellule celluleForSwap: cellulesList){
             for (Cellule celluleSwap: cellulesList){
                 if(celluleSwap == celluleForSwap){
                     continue;
                 }
                 int[][] changeMatrix = copyMatrix();
-                int temp =
                 changeMatrix[celluleForSwap.getPositionHorizontal()][celluleForSwap.getPositionVertical()] =
                         celluleSwap.getStateValue();
                 changeMatrix[celluleSwap.getPositionHorizontal()][celluleSwap.getPositionVertical()] =
                         celluleForSwap.getStateValue();
 
+                k++;
+                System.out.println(k);
                 show(changeMatrix);
 
                 if(isMagicSquare(changeMatrix)){
