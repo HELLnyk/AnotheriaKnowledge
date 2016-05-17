@@ -12,12 +12,12 @@ public class Worker implements Runnable {
     /**
      * capacity of how mach values will be put
      */
-    private static final int DIFFERENT_VALUES_AMOUNT = 100000;
+    private static final int DIFFERENT_VALUES_AMOUNT = 100;
 
     /**
      * default length of every value
      */
-    private static final int DIFFERENT_VALUE_LENGTH = 100;
+    private static final int DIFFERENT_VALUE_LENGTH = 10;
 
     /**
      * array of {@link String} values
