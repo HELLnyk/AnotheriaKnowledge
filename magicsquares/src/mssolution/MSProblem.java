@@ -21,13 +21,7 @@ public class MSProblem {
 
     public void findResult(){
         for (int values = 1; values <= capacityOfMass; values++) {
-            for (int increment = 1; increment <= capacityOfMass; increment++) {
-                int[][] matrix = fillMagicSquare(new int[capacityOfSquare][capacityOfSquare], values, 0,0, increment);
-                if(matrix.length == capacityOfSquare){
-                    totalResultOfMagicSquare++;
-                    FileWriter.writeMatrix(matrix, totalResultOfMagicSquare);
-                }
-            }
+            fillMagicSquare(new int[capacityOfSquare][capacityOfSquare], values, 0);
         }
     }
 
@@ -38,41 +32,51 @@ public class MSProblem {
         return value % (capacityOfMass + 1);
     }
 
-    private int[][] fillMagicSquare(int[][] matrixForFill, int startValue, int counterOfRowAndColumn, int startIndex,
-                                    int incrementForValues){
-        if(counterOfRowAndColumn == capacityOfSquare){
-            if(isSameDiagonals(matrixForFill)) {
-                return matrixForFill;
-            }else
-                return new int[1][1];
-        }else {
-            int valueOfNeededElements = (2*capacityOfSquare - 1) - 2*counterOfRowAndColumn;
-            int[] currentColumnArray = new int[matrixForFill[counterOfRowAndColumn].length];
+    private boolean fillMagicSquare(int[][] matrixForFill, int startValue, int counterOfRowAndColumn){
+        if(counterOfRowAndColumn == capacityOfSquare && isSameDiagonals(matrixForFill)) {
+            totalResultOfMagicSquare++;
+            FileWriter.writeMatrix(matrixForFill, totalResultOfMagicSquare);
+            return true;
+        }
+        else {
+            for (int element = 1; element <= capacityOfMass; element++) {
+                if(element == startValue)
+                    continue;
+                int currentElement = element;
+                int valueOfNeededElements = (2*capacityOfSquare - 1) - 2*counterOfRowAndColumn;
+                int[] currentColumnArray = new int[matrixForFill[counterOfRowAndColumn].length];
 
 
-            matrixForFill[counterOfRowAndColumn][counterOfRowAndColumn] = getNextStartValue(startValue);
-            startValue += incrementForValues;
+                matrixForFill[counterOfRowAndColumn][counterOfRowAndColumn] = getNextStartValue(startValue);
+                currentElement = setExcludingValue(startValue, element);
 
-            int index = counterOfRowAndColumn + 1;
-            for (int counterForCopy = 1; counterForCopy < valueOfNeededElements; counterForCopy += 2){
-                matrixForFill[counterOfRowAndColumn][index] = getNextStartValue(startValue);
-                startValue += incrementForValues;
-                matrixForFill[index][counterOfRowAndColumn] = getNextStartValue(startValue);
-                startValue += incrementForValues;
-                index++;
-            }
+                int index = counterOfRowAndColumn + 1;
+                for (int counterForCopy = 1; counterForCopy < valueOfNeededElements; counterForCopy += 2){
+                    matrixForFill[counterOfRowAndColumn][index] = getNextStartValue(setExcludingValue(startValue, currentElement));
+                    currentElement++;
+                    matrixForFill[index][counterOfRowAndColumn] = getNextStartValue(setExcludingValue(startValue, currentElement));
+                    currentElement++;
+                    index++;
+                }
 
-            for (int indexInColumn = 0; indexInColumn < currentColumnArray.length; indexInColumn++) {
-                currentColumnArray[indexInColumn] = matrixForFill[indexInColumn][counterOfRowAndColumn];
-            }
+                for (int indexInColumn = 0; indexInColumn < currentColumnArray.length; indexInColumn++) {
+                    currentColumnArray[indexInColumn] = matrixForFill[indexInColumn][counterOfRowAndColumn];
+                }
 
-            if(isMagicArray(matrixForFill[counterOfRowAndColumn]) && isMagicArray(currentColumnArray)) {
-                startIndex += valueOfNeededElements;
-                return fillMagicSquare(matrixForFill, startValue, counterOfRowAndColumn + 1, startIndex, incrementForValues);
-            }else {
-                return new int[1][1];
+                if(isMagicArray(matrixForFill[counterOfRowAndColumn]) && isMagicArray(currentColumnArray)) {
+                    if(fillMagicSquare(matrixForFill, currentElement, counterOfRowAndColumn + 1)){
+                        return true;
+                    }
+                }
             }
         }
+        return false;
+    }
+
+    private int setExcludingValue(int firstValue, int currentValue){
+        if(firstValue == currentValue)
+            currentValue++;
+        return currentValue;
     }
 
     private int setMagicConstant(){

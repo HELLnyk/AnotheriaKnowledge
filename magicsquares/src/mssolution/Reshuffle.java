@@ -47,7 +47,7 @@ public class Reshuffle {
      * @return
      *      array which dont have a copies
      */
-    private static int[] excludingCopy(int[] sourceArray, int index) {
+    public static int[] excludingCopy(int[] sourceArray, int index) {
         int[] result = new int[sourceArray.length - 1];
         for (int sourceArrayIndex = 0, resultIndex = 0; sourceArrayIndex < sourceArray.length; sourceArrayIndex++) {
             if (sourceArrayIndex != index) {
