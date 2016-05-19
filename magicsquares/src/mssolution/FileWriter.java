@@ -10,7 +10,7 @@ public class FileWriter {
     /**
      * filename, where information will be recorded
      */
-    private static final String FILE_NAME = "/home/hellnyk/HELLnyk/gitRepositories/AnotheriaKnowledge/matrixoutput.txt";
+    private static String FILE_NAME = "/home/hellnyk/HELLnyk/gitRepositories/AnotheriaKnowledge/matrixoutput";
 
     /**
      * constructs {@link StringBuffer} instance for writing into the file
@@ -19,8 +19,11 @@ public class FileWriter {
      *      matrix which will be written into the file
      * @param number
      *      current number of result matrix
+     * @param value
+     *      the name of the output file, which will be recorded
+     *      specific values of the magic square according to the first element
      */
-    public static void writeMatrix(int [][] matrix, int number){
+    public static void writeMatrix(int [][] matrix, int number, int value){
         StringBuffer stringBuffer = new StringBuffer();
         String title = "**** " + number + " matrix ****\n";
         stringBuffer.append(title);
@@ -37,7 +40,7 @@ public class FileWriter {
             stringBuffer.append("\n");
         }
         stringBuffer.append("\n");
-        printData(stringBuffer);
+        printData(stringBuffer, FILE_NAME + String.format("_%d.txt",value));
     }
 
     /**
@@ -45,9 +48,11 @@ public class FileWriter {
      *
      * @param stringBuffer
      *      {@link StringBuffer} instance for writing
+     * @param fileName
+     *      concrete name of output file
      */
-    private static void printData(StringBuffer stringBuffer){
-        try(RandomAccessFile file = new RandomAccessFile(FILE_NAME, "rw")) {
+    private static void printData(StringBuffer stringBuffer, String fileName){
+        try(RandomAccessFile file = new RandomAccessFile(fileName, "rw")) {
             file.skipBytes((int) file.length());
             file.writeBytes(stringBuffer.toString());
         } catch (IOException e) {
