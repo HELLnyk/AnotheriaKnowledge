@@ -23,12 +23,15 @@ public class MagicSquareProblem{
     }
 
     public void getSomeResult(){
-        fillMatrix(new HashSet<>(), 0);
+        fillMatrix(new HashSet<>(), 0, 0);
         System.out.println(totalResult);
     }
 
 
-    private boolean fillMatrix(Set<Integer> recordedElements, int indexOfRecordingElement){
+    private boolean fillMatrix(Set<Integer> recordedElements, int indexOfRecordingElement, int counterOfRow){
+
+        int rowIndex = indexOfRecordingElement / capacityOfSquare;
+        int columnIndex = indexOfRecordingElement % capacityOfSquare;
 
         if(indexOfRecordingElement == capacityOfSquare*capacityOfSquare){
             if(checkMatrix(baseMatrix)) {
@@ -43,13 +46,19 @@ public class MagicSquareProblem{
                 if(element > capacityOfSquare*capacityOfSquare)
                     break;
                 recordedElements.add(element);
-                int rowIndex = indexOfRecordingElement / capacityOfSquare;
-                int columnIndex = indexOfRecordingElement % capacityOfSquare;
                 baseMatrix[rowIndex][columnIndex] = element;
-
-                if (fillMatrix(recordedElements, indexOfRecordingElement + 1))
+                if(recordedElements.size() % capacityOfSquare == 0){
+                    if(isMagicArray(baseMatrix[counterOfRow])){
+                        counterOfRow++;
+                    }
+                    else {
+                        recordedElements.remove(element);
+                        continue;
+                    }
+                }
+                if (fillMatrix(recordedElements, indexOfRecordingElement + 1, counterOfRow)) {
                     return true;
-
+                }
                 baseMatrix[rowIndex][columnIndex] = 0;
                 recordedElements.remove(element);
             }
@@ -75,6 +84,14 @@ public class MagicSquareProblem{
             }
         }
         return sumDownDiagonal == magicConstant && sumUpDiagonal == magicConstant;
+    }
+
+    private boolean isMagicArray(int[] array){
+        int sum = 0;
+        for(int element: array){
+            sum += element;
+        }
+        return magicConstant == sum;
     }
 
     private int initMagicConstant(){
