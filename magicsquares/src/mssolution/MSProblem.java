@@ -1,5 +1,8 @@
 package mssolution;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author hellnyk
  */
@@ -9,19 +12,17 @@ public class MSProblem {
     private int totalResultOfMagicSquare = 0;
     private int magicConstant;
     private int capacityOfMass;
-    private int[] someArray;
 
     public MSProblem(int capacityOfSquare){
         this.capacityOfSquare = capacityOfSquare;
         magicConstant = setMagicConstant();
         capacityOfMass = capacityOfSquare * capacityOfSquare;
-        someArray = new int[capacityOfMass];
     }
 
 
     public void findResult(){
         for (int values = 1; values <= capacityOfMass; values++) {
-            fillMagicSquare(new int[capacityOfSquare][capacityOfSquare], values, 0);
+            fillMagicSquare(new HashSet<>(), new int[capacityOfSquare][capacityOfSquare], values, 0);
         }
     }
 
@@ -32,10 +33,13 @@ public class MSProblem {
         return value % (capacityOfMass + 1);
     }
 
-    private boolean fillMagicSquare(int[][] matrixForFill, int startValue, int counterOfRowAndColumn){
+    private boolean fillMagicSquare(Set<Integer> recordedElements, int[][] matrixForFill, int startValue, int counterOfRowAndColumn){
+
+        recordedElements.add(startValue);
+
         if(counterOfRowAndColumn == capacityOfSquare && isSameDiagonals(matrixForFill)) {
             totalResultOfMagicSquare++;
-            FileWriter.writeMatrix(matrixForFill, totalResultOfMagicSquare);
+            FileWriter.writeMatrix(matrixForFill, totalResultOfMagicSquare, matrixForFill[0][0]);
             return true;
         }
         else {
@@ -64,7 +68,7 @@ public class MSProblem {
                 }
 
                 if(isMagicArray(matrixForFill[counterOfRowAndColumn]) && isMagicArray(currentColumnArray)) {
-                    if(fillMagicSquare(matrixForFill, currentElement, counterOfRowAndColumn + 1)){
+                    if(fillMagicSquare(recordedElements, matrixForFill, currentElement, counterOfRowAndColumn + 1)){
                         return true;
                     }
                 }
