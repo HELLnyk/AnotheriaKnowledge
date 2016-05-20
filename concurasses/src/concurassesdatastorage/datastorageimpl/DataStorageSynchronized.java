@@ -1,6 +1,6 @@
-package catmtwo;
+package concurassesdatastorage.datastorageimpl;
 
-import advanced.AbstractDataStorage;
+import concurassesdatastorage.AbstractDataStorage;
 
 import java.util.*;
 
@@ -9,12 +9,12 @@ import java.util.*;
  *
  * @author hellnyk
  */
-public class DataStorageTwo extends AbstractDataStorage<Integer, String> {
+public class DataStorageSynchronized extends AbstractDataStorage<Integer, String> {
 
     /**
      * Default constructor for initialize {@link java.util.Map} instance
      */
-    public DataStorageTwo(){
+    public DataStorageSynchronized(){
         Map<Integer, String> hashMap = new HashMap<>();
         map = Collections.synchronizedMap(hashMap);
     }

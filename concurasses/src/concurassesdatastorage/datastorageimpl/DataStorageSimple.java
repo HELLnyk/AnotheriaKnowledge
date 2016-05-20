@@ -1,6 +1,6 @@
-package catmone;
+package concurassesdatastorage.datastorageimpl;
 
-import advanced.AbstractDataStorage;
+import concurassesdatastorage.AbstractDataStorage;
 
 import java.util.HashMap;
 
@@ -10,12 +10,12 @@ import java.util.HashMap;
  *
  * @author hellnyk
  */
-public class DataStorageOne extends AbstractDataStorage<Integer, String> {
+public class DataStorageSimple extends AbstractDataStorage<Integer, String> {
 
     /**
      * Default constructor for initialize {@link java.util.Map} instance
      */
-    public DataStorageOne() {
+    public DataStorageSimple() {
         map = new HashMap<>();
     }
 

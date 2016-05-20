@@ -1,6 +1,6 @@
-package catmthree;
+package concurassesdatastorage.datastorageimpl;
 
-import advanced.AbstractDataStorage;
+import concurassesdatastorage.AbstractDataStorage;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -9,12 +9,12 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author hellnyk
  */
-public class DataStorageThree extends AbstractDataStorage<Integer, String> {
+public class DataStorageConcurrent extends AbstractDataStorage<Integer, String> {
 
     /**
      * Default constructor for initialize {@link java.util.Map} instance
      */
-    public DataStorageThree(){
+    public DataStorageConcurrent(){
         map = new ConcurrentHashMap<>();
     }
 
