@@ -82,22 +82,29 @@ public class QueenProblem {
                 int[] position = searchRecResult(mass, numberOfQueen+1);
                 if(position != null){
                     totalResults++;
-//                    if(kindOfPrintResult == PRINT_MATRIX)
-//                        printResultMatrix(position);
-//                    else
-//                        printResultIndex(position);
-                    switch (kindOfPrintResult){
-                        case PRINT_MATRIX:
-                            printResultMatrix(position);
-                            break;
-                        case PRINT_VECTOR:
-                            printResultIndex(position);
-                            break;
-                    }
+                    print(position);
                 }
             }
         }
         return null;
+    }
+
+    /**
+     * print result to console
+     *
+     * @param position
+     *      array of positions queen on the chessboard
+     */
+    private void print(int[] position){
+        switch (kindOfPrintResult){
+            case PRINT_MATRIX:
+                printResultMatrix(position);
+                break;
+            case PRINT_VECTOR:
+                printResultIndex(position);
+                break;
+        }
+
     }
 
     /**
