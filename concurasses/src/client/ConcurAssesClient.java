@@ -1,7 +1,8 @@
 package client;
 
-import advanced.AbstractDataStorage;
-import advanced.FactoryDataStorage;
+import concurassesdatastorage.AbstractDataStorage;
+import concurassesdatastorage.DataStorageType;
+import concurassesdatastorage.FactoryDataStorage;
 import advanced.Worker;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 public class ConcurAssesClient {
 
     public static void main(String[] args) throws InterruptedException {
-        testStorage(FactoryDataStorage.getDataStorage(FactoryDataStorage.DATA_STORAGE_ONE));
+        testStorage(FactoryDataStorage.getDataStorage(DataStorageType.SIMPLE));
     }
 
     private static void testStorage(AbstractDataStorage dataStore) throws InterruptedException{

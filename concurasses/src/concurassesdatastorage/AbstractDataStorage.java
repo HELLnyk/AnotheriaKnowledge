@@ -1,4 +1,6 @@
-package advanced;
+package concurassesdatastorage;
+
+import advanced.InformationToFile;
 
 import java.util.ConcurrentModificationException;
 import java.util.Map;

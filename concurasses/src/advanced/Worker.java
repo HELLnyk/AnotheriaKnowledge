@@ -1,5 +1,7 @@
 package advanced;
 
+import concurassesdatastorage.AbstractDataStorage;
+
 import java.util.Random;
 
 /**
