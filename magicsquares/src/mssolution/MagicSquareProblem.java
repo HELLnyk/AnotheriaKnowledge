@@ -13,8 +13,6 @@ public class MagicSquareProblem{
     private int magicConstant;
     private int[][] baseMatrix;
     private int totalResult = 0;
-    private int t = 0;
-
 
     public MagicSquareProblem(int capacityOfSquare){
         this.capacityOfSquare = capacityOfSquare;
@@ -26,7 +24,6 @@ public class MagicSquareProblem{
         fillMatrix(new HashSet<>(), 0, 0);
         System.out.println(totalResult);
     }
-
 
     private boolean fillMatrix(Set<Integer> recordedElements, int indexOfRecordingElement, int counterOfRow){
 
@@ -49,7 +46,7 @@ public class MagicSquareProblem{
                 baseMatrix[rowIndex][columnIndex] = element;
                 if(recordedElements.size() % capacityOfSquare == 0){
                     if(isMagicArray(baseMatrix[counterOfRow])){
-                        counterOfRow++;
+                            counterOfRow++;
                     }
                     else {
                         recordedElements.remove(element);
@@ -66,6 +63,39 @@ public class MagicSquareProblem{
         return false;
     }
 
+    private boolean writeMagicColumn(Set<Integer> recordedElementsInRow, int currentRow, int currentColumn){
+        if(currentColumn == capacityOfSquare){
+            if(isMagicArray(copyColumn(baseMatrix, currentRow))) {
+                return true;
+            }
+        }
+        else {
+            for (int element = 1; element <= capacityOfSquare * capacityOfSquare; element++) {
+                while (recordedElementsInRow.contains(element)) {
+                    element++;
+                }
+                if (element > capacityOfSquare * capacityOfSquare) {
+                    break;
+                }
+                baseMatrix[currentRow][currentColumn] = element;
+                recordedElementsInRow.add(element);
+                if(writeMagicColumn(recordedElementsInRow, currentRow, currentColumn + 1)){
+                    return true;
+                }
+                baseMatrix[currentRow][currentColumn] = 0;
+                recordedElementsInRow.remove(element);
+            }
+        }
+        return false;
+    }
+
+    private int[] copyColumn(int[][] fromMatrix, int indexOfColumn){
+        int [] destArray = new int[capacityOfSquare];
+        for (int indexOfElementInColumn = 0; indexOfElementInColumn < destArray.length; indexOfElementInColumn++) {
+            destArray[indexOfElementInColumn] = fromMatrix[indexOfElementInColumn][indexOfColumn];
+        }
+        return destArray;
+    }
 
     public boolean checkMatrix(int[][] matrix){
         int sumDownDiagonal = 0;
