@@ -52,6 +52,10 @@ public class SimpleServer extends Thread {
         start();
     }
 
+    /**
+     * read {@link InputStream} instance into {@link Socket} instance from the client,
+     * change this data and write {@link OutputStream} response
+     */
     @Override
     public void run() {
         try {
