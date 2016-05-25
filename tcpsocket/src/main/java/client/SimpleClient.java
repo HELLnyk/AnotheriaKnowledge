@@ -27,6 +27,12 @@ public class SimpleClient{
      *      argument for construct
      */
     public static void main(String[] args) {
+
+        if(args.length == 0){
+            LOGGER.error("There are no initial data");
+            return;
+        }
+
         try {
             Socket socket = new Socket("localhost", PORT);
             args[0] = args[0] + " \ndata from server:\n" +
