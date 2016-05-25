@@ -26,9 +26,17 @@ public class SimpleServer extends Thread {
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleServer.class);
 
     /**
+     * main method
+     */
+
+    public static void main(String[] args) {
+        runServer();
+    }
+
+    /**
      * start server executing
      */
-    public static void runServer(){
+    private static void runServer(){
         try {
             int connectionsCounter = 0;
             ServerSocket serverSocket = new ServerSocket(PORT, TIMEOUT, InetAddress.getByName(NAME_HOST));
