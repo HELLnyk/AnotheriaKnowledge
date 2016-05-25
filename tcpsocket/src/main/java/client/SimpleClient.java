@@ -35,9 +35,8 @@ public class SimpleClient{
 
         try {
             Socket socket = new Socket("localhost", PORT);
-            args[0] = args[0] + " \ndata from server:\n" +
-                    socket.getInetAddress().getHostAddress() + ": " +
-                    socket.getLocalPort();
+            System.out.println("<<Client data>>");
+            System.out.println("client socket: " + socket.getInetAddress().getHostAddress() + ":" + socket.getLocalPort());
             socket.getOutputStream().write(args[0].getBytes());
 
             byte[] buffer = new byte[KB_BYTES * BYTES];
