@@ -28,6 +28,12 @@ public class ClientServerTest {
     }
 
     @Test
+    public void testWithoutParameter(){
+        SimpleClient.main(new String[]{});
+    }
+
+
+    @Test
     public void testWork(){
         String[] elements  = {"test", "element", "value", "string", "anotheria"};
         for(String element: elements){
