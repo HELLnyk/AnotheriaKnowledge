@@ -84,8 +84,8 @@ public class SimpleServer extends Thread {
             System.out.println("server is started");
 
             while (work){
-                new SimpleServer(serverSocket.accept(), connectionsCounter);
                 connectionsCounter++;
+                new SimpleServer(serverSocket.accept(), connectionsCounter);
             }
         }catch (Exception e){
             LOGGER.warn("Init error: " + e.getMessage());
