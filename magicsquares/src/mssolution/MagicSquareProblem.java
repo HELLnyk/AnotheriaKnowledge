@@ -41,14 +41,15 @@ public class MagicSquareProblem{
                     element++;
                 }
                 if(element > capacityOfSquare*capacityOfSquare)
-                    break;
-                recordedElements.add(element);
+                    return false;
+
                 baseMatrix[rowIndex][columnIndex] = element;
+                recordedElements.add(element);
                 if(recordedElements.size() % capacityOfSquare == 0){
-                    if(isMagicArray(baseMatrix[counterOfRow])){
-                            counterOfRow++;
-                    }
-                    else {
+                    if (isMagicArray(baseMatrix[counterOfRow])) {
+                        counterOfRow++;
+                    } else {
+                        baseMatrix[rowIndex][columnIndex] = 0;
                         recordedElements.remove(element);
                         continue;
                     }
@@ -63,53 +64,17 @@ public class MagicSquareProblem{
         return false;
     }
 
-    private boolean writeMagicColumn(Set<Integer> recordedElementsInRow, int currentRow, int currentColumn){
-        if(currentColumn == capacityOfSquare){
-            if(isMagicArray(copyColumn(baseMatrix, currentRow))) {
-                return true;
-            }
-        }
-        else {
-            for (int element = 1; element <= capacityOfSquare * capacityOfSquare; element++) {
-                while (recordedElementsInRow.contains(element)) {
-                    element++;
-                }
-                if (element > capacityOfSquare * capacityOfSquare) {
-                    break;
-                }
-                baseMatrix[currentRow][currentColumn] = element;
-                recordedElementsInRow.add(element);
-                if(writeMagicColumn(recordedElementsInRow, currentRow, currentColumn + 1)){
-                    return true;
-                }
-                baseMatrix[currentRow][currentColumn] = 0;
-                recordedElementsInRow.remove(element);
-            }
-        }
-        return false;
-    }
-
-    private int[] copyColumn(int[][] fromMatrix, int indexOfColumn){
-        int [] destArray = new int[capacityOfSquare];
-        for (int indexOfElementInColumn = 0; indexOfElementInColumn < destArray.length; indexOfElementInColumn++) {
-            destArray[indexOfElementInColumn] = fromMatrix[indexOfElementInColumn][indexOfColumn];
-        }
-        return destArray;
-    }
-
     public boolean checkMatrix(int[][] matrix){
         int sumDownDiagonal = 0;
         int sumUpDiagonal = 0;
         for (int row = 0; row < matrix.length; row++) {
-            int sumCurrentRow = 0;
             int sumCurrentColumn = 0;
             sumUpDiagonal += matrix[row][row];
             sumDownDiagonal += matrix[(matrix.length - 1) - row][row];
             for (int column = 0; column < matrix.length; column++) {
-                sumCurrentRow += matrix[row][column];
                 sumCurrentColumn += matrix[column][row];
             }
-            if((sumCurrentColumn != magicConstant) || (sumCurrentRow != magicConstant)){
+            if((sumCurrentColumn != magicConstant) ){
                 return false;
             }
         }
@@ -129,5 +94,3 @@ public class MagicSquareProblem{
     }
 
 }
-
-
