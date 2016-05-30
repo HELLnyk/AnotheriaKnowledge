@@ -13,7 +13,7 @@ import static constants.Constants.*;
  *
  * @author hellnyk
  */
-public class SimpleServer extends Thread {
+public class SimpleServer{
 
     /**
      * executing server
