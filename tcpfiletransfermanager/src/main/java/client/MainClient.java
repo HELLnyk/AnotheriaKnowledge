@@ -209,12 +209,15 @@ public class MainClient {
             initKey();
             sentInfo(key, clientDataTransferSocket);
 
-            DataEvent event;
-
             InputStream inputStream = clientDataTransferSocket.getInputStream();
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            event = (DataEvent) objectInputStream.readObject();
-            System.out.println(event.toString());
+            Object event = objectInputStream.readObject();
+            if(event == null){
+                System.out.println("There is not exist value with this key");
+            }
+            else {
+                System.out.println(event.toString());
+            }
 
         }catch (Exception e){
             LOGGER.error("Cannot create GET request: " + e.getMessage());
