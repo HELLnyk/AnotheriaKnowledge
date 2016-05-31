@@ -85,14 +85,14 @@ public class MainClient {
      */
     private static void workClient() throws IOException{
         MainClient client = new MainClient();
-        String stop = "";
+        String shutdownClientWork;
         do{
             client.initClientCommand();
             client.createRequestCommand(client.getClientCommand());
             System.out.println("for continue press ENTER for end - write stop");
-            stop = client.getScanner().nextLine();
+            shutdownClientWork = client.getScanner().nextLine();
 
-        }while (!stop.equals("stop"));
+        }while (!shutdownClientWork.equals("stop"));
         client.getScanner().close();
         client.getClientCommandSocket().close();
         client.getClientDataTransferSocket().close();
