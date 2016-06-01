@@ -64,7 +64,6 @@ public class MagicSquareProblemCopy {
                 }
                 baseMatrix[rowIndex][columnIndex] = element;
                 recordedElements.add(element);
-
                 if(columnIndex == capacityOfSquare - 1){
                     if(isMagicArray(baseMatrix[baseRowAndColumn])){
                         writeColumn = true;
@@ -73,16 +72,13 @@ public class MagicSquareProblemCopy {
                         continue;
                     }
                 }
-
                 if(writeColumn){
                     if(rowIndex != capacityOfSquare - 1) {
                         if (fillMatrix(recordedElements, rowIndex + 1, baseRowAndColumn, baseRowAndColumn, true)) {
                             return true;
                         }
-                        else {
-                            removeElementFromMatrixAndSet(recordedElements, element, rowIndex, columnIndex);
-                            continue;
-                        }
+                        removeElementFromMatrixAndSet(recordedElements, element, rowIndex, columnIndex);
+                        continue;
                     }else {
                         if(isMagicArray(copyColumn(baseMatrix, baseRowAndColumn))){
                             if(baseRowAndColumn != capacityOfSquare - 1) {
@@ -97,27 +93,26 @@ public class MagicSquareProblemCopy {
                         }
                     }
                 }
-
                 if(fillMatrix(recordedElements, rowIndex, columnIndex + 1, baseRowAndColumn, false)){
                     return true;
                 }
-
+                rowIndex = getCorrectRowIndex(recordedElements, element, rowIndex ,columnIndex);
                 removeElementFromMatrixAndSet(recordedElements, element, rowIndex, columnIndex);
             }
         }
         return false;
     }
 
-    private void removeElementFromMatrixAndSet(Set set, int element, int rowIndex, int columnIndex){
-        if(element != baseMatrix[rowIndex][columnIndex])
-            baseMatrix[capacityOfSquare - 1][columnIndex] = 0;
-        else
-            baseMatrix[rowIndex][columnIndex] = 0;
-        set.remove(element);
+    private int getCorrectRowIndex(Set<Integer> recordedElements, int element, int rowIndex, int columnIndex) {
+        if(element != baseMatrix[rowIndex][columnIndex]){
+            return (capacityOfSquare - 1);
+        }
+        else return rowIndex;
     }
 
-    private void removeElementFromMatrix(int element, int rowIndex, int columnIndex){
-
+    private void removeElementFromMatrixAndSet(Set set, int element, int rowIndex, int columnIndex){
+        baseMatrix[rowIndex][columnIndex] = 0;
+        set.remove(element);
     }
 
     private int[] copyColumn(int[][] fromMatrix, int indexOfColumn){
