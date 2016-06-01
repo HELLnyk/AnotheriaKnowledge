@@ -50,7 +50,7 @@ public class MagicSquareProblemCopy {
         if(recordedElements.size() == capacityOfElements){
             if(checkDiagonals(baseMatrix)){
                 totalResult++;
-                System.out.println(totalResult);
+                //System.out.println(totalResult);
                 FileWriter.writeMatrix(baseMatrix, totalResult, baseMatrix[0][0]);
             }
         }
@@ -66,59 +66,58 @@ public class MagicSquareProblemCopy {
                 recordedElements.add(element);
 
                 if(columnIndex == capacityOfSquare - 1){
-                    if(isMagicArray(baseMatrix[baseRowAndColumn])) {
+                    if(isMagicArray(baseMatrix[baseRowAndColumn])){
                         writeColumn = true;
                     }else {
                         removeElementFromMatrixAndSet(recordedElements, element, rowIndex, columnIndex);
                         continue;
                     }
                 }
-                if(writeColumn) {
-                    if (rowIndex != capacityOfSquare - 1) {
-                        if(!fillMatrix(recordedElements, rowIndex + 1, baseRowAndColumn, baseRowAndColumn, writeColumn)){
+
+                if(writeColumn){
+                    if(rowIndex != capacityOfSquare - 1) {
+                        if (fillMatrix(recordedElements, rowIndex + 1, baseRowAndColumn, baseRowAndColumn, true)) {
+                            return true;
+                        }
+                        else {
                             removeElementFromMatrixAndSet(recordedElements, element, rowIndex, columnIndex);
                             continue;
                         }
-                    } else {
-                        if (isMagicArray(copyColumn(baseMatrix, baseRowAndColumn))) {
-                            if(baseRowAndColumn != capacityOfSquare - 1){
-                                writeColumn = false;
+                    }else {
+                        if(isMagicArray(copyColumn(baseMatrix, baseRowAndColumn))){
+                            if(baseRowAndColumn != capacityOfSquare - 1) {
                                 baseRowAndColumn++;
                                 rowIndex = baseRowAndColumn;
-                                columnIndex = baseRowAndColumn - 1;
+                                columnIndex = rowIndex - 1;
                             }
-                        } else {
-                            //writeColumn = true;
+                        }
+                        else {
                             removeElementFromMatrixAndSet(recordedElements, element, rowIndex, columnIndex);
                             continue;
                         }
                     }
                 }
-                if (fillMatrix(recordedElements, rowIndex, columnIndex + 1, baseRowAndColumn, writeColumn)){
+
+                if(fillMatrix(recordedElements, rowIndex, columnIndex + 1, baseRowAndColumn, false)){
                     return true;
                 }
 
-                if(rowIndex == capacityOfSquare - 1){
-                    writeColumn = true;
-                }
-                //removeElementFromMatrixAndSet(recordedElements, element, rowIndex, columnIndex);
-                removeElementFromMatrix(element, rowIndex, columnIndex);
-                recordedElements.remove(element);
+                removeElementFromMatrixAndSet(recordedElements, element, rowIndex, columnIndex);
             }
         }
         return false;
     }
 
     private void removeElementFromMatrixAndSet(Set set, int element, int rowIndex, int columnIndex){
-        baseMatrix[rowIndex][columnIndex] = 0;
-        set.remove(element);
-    }
-
-    private void removeElementFromMatrix(int element, int rowIndex, int columnIndex){
         if(element != baseMatrix[rowIndex][columnIndex])
             baseMatrix[capacityOfSquare - 1][columnIndex] = 0;
         else
             baseMatrix[rowIndex][columnIndex] = 0;
+        set.remove(element);
+    }
+
+    private void removeElementFromMatrix(int element, int rowIndex, int columnIndex){
+
     }
 
     private int[] copyColumn(int[][] fromMatrix, int indexOfColumn){
