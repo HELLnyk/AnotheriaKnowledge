@@ -23,13 +23,14 @@ public interface InterfaceWorkDAO<T> {
      * @param id
      *      id of record in the database
      * @return
-     *      record of the databse
+     *      record of the database
      */
     T get(long id);
 
     /**
      * gea all records in the table of database
      * @return
+     *      all records of the database
      */
     List<T> getAll();
 }
