@@ -1,5 +1,8 @@
 package eightqueensolution;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Solution of queens problem
  *
@@ -30,6 +33,11 @@ public class QueenProblem {
      * kind how result will be print
      */
     private int kindOfPrintResult;
+
+    /**
+     * {@link List} instance of {@link SolutionEvent} array of results
+     */
+    private List<SolutionEvent> results = new ArrayList<>();
 
     /**
      * Default constructor
@@ -81,6 +89,9 @@ public class QueenProblem {
                 mass[numberOfQueen] = i;
                 int[] position = searchRecResult(mass, numberOfQueen+1);
                 if(position != null){
+                    SolutionEvent solutionEvent = new SolutionEvent();
+                    solutionEvent.setArray(position);
+                    results.add(solutionEvent);
                     totalResults++;
                     print(position);
                 }
@@ -141,5 +152,15 @@ public class QueenProblem {
             System.out.print(i + " ");
         }
         System.out.println("]");
+    }
+
+    /**
+     * getter for all results
+     *
+     * @return
+     *      {@link List} instance of {@link SolutionEvent} array of all correct results for queen problem
+     */
+    public List<SolutionEvent> getResults() {
+        return results;
     }
 }
