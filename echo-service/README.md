@@ -15,6 +15,6 @@ DEFAULT_SERVER_HOST = "127.0.0.1"; //there set ip-address of you machine
 ```
 
 #Running the project
-First of all you need to create `jar` files of your client and server. For this make command `mvn package`. After this you will have two jar files: *rmi-client-runnable* and *rmi-server-runnable*. Then you can run this program. It includes a few simple phases:
+First of all you need to create `jar` files of your client and server. For this make command `mvn package` only in `echo-servise` project. After this you will have two jar files: *rmi-client-runnable* and *rmi-server-runnable*. Then you can run this program. It includes a few simple phases:
 - Before using client start your server. For this type next command `java  -jar/path\to\created\jar/rmi-server-runnable.jar`
 - Then start your client: `java -jar /path\to\created\jar/rmi-client-runnable.jar`
