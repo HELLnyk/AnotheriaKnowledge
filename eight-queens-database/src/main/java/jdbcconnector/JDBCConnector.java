@@ -1,5 +1,6 @@
 package jdbcconnector;
 
+import org.configureme.ConfigurationManager;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 import org.slf4j.Logger;
@@ -59,6 +60,13 @@ public class JDBCConnector {
     private Connection connection;
 
     /**
+     * Default constructor for configure database parameters
+     */
+    private JDBCConnector(){
+        ConfigurationManager.INSTANCE.configure(this);
+    }
+
+    /**
      * Get connection to the database
      *
      * @return
@@ -96,6 +104,22 @@ public class JDBCConnector {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public static JDBCConnector getINSTANCE() {
