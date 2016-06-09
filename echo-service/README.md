@@ -11,7 +11,7 @@ There are three parts (subprojects) in the project:
 If you want use this program only on your machine go to the next paragraph. Otherwise, you must change some configuration for connection.For this you need to open file `RemoteEchoServiceParameter` in the `echo-service-interface` and only change `DEFAULT_SERVER_PORT` and `DEFAULT_SERVER_HOST` to the yours. For example, set 'host' with ip-address of your machine and 'port' with number of port which will be listening requests.
 ```java
 DEFAULT_SERVER_PORT = 8081; // this is number of your port
-DEFAULT_SERVER_HOST = "127.0.0.1"; //there set ip-address of you machine
+DEFAULT_SERVER_HOST = "127.0.0.1"; //there set ip-address of you machine where will be your server
 ```
 
 #Running the project
