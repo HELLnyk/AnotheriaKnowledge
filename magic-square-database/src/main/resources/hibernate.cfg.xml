@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/db_magic_squares</property>
+        <property name="hibernate.connection.username">magic_squares_user</property>
+        <property name="hibernate.connection.password">magic_password</property>
+
+        <mapping class="entities.MagicSquareEntity"></mapping>
+    </session-factory>
+</hibernate-configuration>
