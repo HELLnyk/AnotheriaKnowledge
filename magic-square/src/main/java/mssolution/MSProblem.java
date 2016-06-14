@@ -48,13 +48,20 @@ public class MSProblem implements Runnable {
     private int element;
 
     /**
+     * {@link WriterInterface} instance
+     */
+    private WriterInterface writerData;
+
+    /**
      * Default constructor for initialize the base properties of the magic square
      *
      * @param capacityOfSquare
      *      the dimension of the magic square
+     * @param writerData
+     *
      */
-    public MSProblem(int capacityOfSquare){
-        setProperties(capacityOfSquare);
+    public MSProblem(int capacityOfSquare, WriterInterface writerData){
+        setProperties(capacityOfSquare, writerData);
     }
 
     /**
@@ -65,9 +72,11 @@ public class MSProblem implements Runnable {
      *      the dimension of the magic square
      * @param element
      *      first element in the matrix
+     * @param writerData
+     *      interface to implement output results
      */
-    public MSProblem(int capacityOfSquare, int element){
-        setProperties(capacityOfSquare);
+    public MSProblem(int capacityOfSquare, int element, WriterInterface writerData){
+        setProperties(capacityOfSquare, writerData);
         this.element = element;
     }
 
@@ -76,9 +85,12 @@ public class MSProblem implements Runnable {
      *
      * @param capacityOfSquare
      *      the dimension of the magic square
+     * @param writerData
+     *      interface to implement output results
      */
-    private void setProperties(int capacityOfSquare){
+    private void setProperties(int capacityOfSquare, WriterInterface writerData){
         this.capacityOfSquare = capacityOfSquare;
+        this.writerData = writerData;
         magicConstant = initMagicConstant();
         baseMatrix = new int[capacityOfSquare][capacityOfSquare];
         capacityOfElements = capacityOfSquare * capacityOfSquare;
@@ -134,16 +146,16 @@ public class MSProblem implements Runnable {
      * @param baseRowAndColumn
      *      the value of current row and column, in which data is recorded
      * @param writeColumn
-     *      <code>boolean</code> value which means where data is recorded (in row or in column)
+     *      {@code boolean} value which means where data is recorded (in row or in column)
      * @return
-     *      <code>true</code>, if all magic squares is found<br>
-     *      and <code>false</code> - otherwise
+     *      {@code true}, if all magic squares is found<br>
+     *      and {@code false} - otherwise
      */
     private boolean fillMatrix(Set<Integer> recordedElements, int rowIndex, int columnIndex, int baseRowAndColumn, boolean writeColumn){
         if(recordedElements.size() == capacityOfElements){
             if(checkDiagonals(baseMatrix)){
                 totalResult++;
-                FileWriter.writeMatrix(baseMatrix, totalResult, baseMatrix[0][0]);
+                writerData.writeMatrix(baseMatrix, totalResult);
             }
         }
         else {
@@ -154,13 +166,6 @@ public class MSProblem implements Runnable {
                 if(element > capacityOfElements) {
                     return false;
                 }
-
-
-//                if(isLargeSum(baseMatrix[baseRowAndColumn]) || isLargeSum(copyColumn(baseMatrix, baseRowAndColumn))){
-//                    return false;
-//                }
-
-
 
                 baseMatrix[rowIndex][columnIndex] = element;
                 recordedElements.add(element);
