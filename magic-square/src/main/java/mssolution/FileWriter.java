@@ -3,6 +3,8 @@ package mssolution;
 import java.io.*;
 
 /**
+ * Realization of {@link WriterInterface} for writing result to the file
+ *
  * @author hellnyk
  */
 public class FileWriter implements WriterInterface {
