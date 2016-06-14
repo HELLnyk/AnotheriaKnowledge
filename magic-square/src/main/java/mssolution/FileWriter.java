@@ -5,7 +5,7 @@ import java.io.*;
 /**
  * @author hellnyk
  */
-public class FileWriter {
+public class FileWriter implements WriterInterface {
 
     /**
      * filename, where information will be recorded
@@ -19,11 +19,10 @@ public class FileWriter {
      *      matrix which will be written into the file
      * @param number
      *      current number of result matrix
-     * @param value
-     *      the name of the output file, which will be recorded
-     *      specific values of the magic square according to the first element
      */
-    public static void writeMatrix(int [][] matrix, int number, int value){
+    @Override
+    public void writeMatrix(int [][] matrix, int number){
+        int firstValueForNameFile = matrix[0][0];
         StringBuffer stringBuffer = new StringBuffer();
         String title = "**** " + number + " matrix ****\n";
         stringBuffer.append(title);
@@ -40,7 +39,7 @@ public class FileWriter {
             stringBuffer.append("\n");
         }
         stringBuffer.append("\n");
-        printData(stringBuffer, fileName + String.format("_%d.txt",value));
+        printData(stringBuffer, fileName + String.format("_%d.txt", firstValueForNameFile));
     }
 
     /**
@@ -51,12 +50,16 @@ public class FileWriter {
      * @param fileName
      *      concrete name of output file
      */
-    private static void printData(StringBuffer stringBuffer, String fileName){
+    private void printData(StringBuffer stringBuffer, String fileName){
         try(RandomAccessFile file = new RandomAccessFile(fileName, "rw")) {
             file.skipBytes((int) file.length());
             file.writeBytes(stringBuffer.toString());
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    public static String getFileName() {
+        return fileName;
     }
 }
