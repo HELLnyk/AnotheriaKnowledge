@@ -1,6 +1,6 @@
 {
-  "driver":   "org.postgresql.Driver",
-  "url":      "jdbc:postgresql://localhost:5432/db_queens",
+  "driver": "org.postgresql.Driver",
+  "url": "jdbc:postgresql://localhost:5432/db_queens",
   "username": "queen_user",
   "password": "queen_password"
 }
