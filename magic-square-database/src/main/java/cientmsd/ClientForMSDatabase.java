@@ -22,6 +22,7 @@ public class ClientForMSDatabase extends ClientMain{
     /**
      * main method of {@link ClientForMSDatabase} instance. Starts program
      * @param args
+     * default arguments
      */
     public static void main(String[] args) {
         ClientForMSDatabase clientForMSDatabase = new ClientForMSDatabase();
@@ -55,6 +56,10 @@ public class ClientForMSDatabase extends ClientMain{
         int[][] result = mainDAO.get(index).getSolutionResultArray();
         printMatrix(result);
         setOptionContinueOfEnd();
+    }
+
+    @Override
+    protected void initConnect() {
     }
 
     /**
