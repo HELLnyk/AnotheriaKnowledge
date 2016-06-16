@@ -14,7 +14,7 @@ public class SimpleFactory {
      * Set realization of {@link InterfaceWorkDAO} instance
      *
      * @return
-     *      realization of {@link WorkDAOjdbcImpl} instance
+     *      realization of {@link InterfaceWorkDAO} instance
      */
     public static InterfaceWorkDAO getWorkDAO(DatabaseConnect connect){
         switch (connect){
