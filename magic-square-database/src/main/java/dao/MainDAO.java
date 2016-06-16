@@ -1,6 +1,5 @@
 package dao;
 
-import cientmsd.ClientForMSDatabase;
 import entities.MagicSquareEntity;
 import hbutil.HibernateUtil;
 import org.hibernate.Criteria;
@@ -68,7 +67,7 @@ public class MainDAO{
         List<MagicSquareEntity> listResult = null;
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Criteria criteria = session.createCriteria(ClientForMSDatabase.class);
+            Criteria criteria = session.createCriteria(MagicSquareEntity.class);
             listResult = (List<MagicSquareEntity>) criteria.list();
             session.getTransaction().commit();
         }catch (Exception e){
