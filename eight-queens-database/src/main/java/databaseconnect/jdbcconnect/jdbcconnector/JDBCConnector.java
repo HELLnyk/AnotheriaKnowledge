@@ -1,4 +1,4 @@
-package jdbcconnector;
+package databaseconnect.jdbcconnect.jdbcconnector;
 
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.Configure;
