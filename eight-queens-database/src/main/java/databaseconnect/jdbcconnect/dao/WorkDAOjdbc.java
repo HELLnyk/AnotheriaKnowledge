@@ -1,5 +1,7 @@
-package dao;
+package databaseconnect.jdbcconnect.dao;
 
+import databaseconnect.InterfaceWorkDAO;
+import databaseconnect.jdbcconnect.jdbcconnector.JDBCConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,27 +13,28 @@ import java.util.List;
  *
  * @author hellnyk
  */
-public abstract class WorkDAO<T> implements InterfaceWorkDAO<T> {
+public abstract class WorkDAOjdbc<T> implements InterfaceWorkDAO<T> {
 
     /**
      * {@link Logger} instance
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(WorkDAO.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WorkDAOjdbc.class);
 
     /**
      * {@link Connection} instance for connection to the database
      */
     private Connection connection;
 
-
     /**
-     * Default constructor
-     *
-     * @param connection
-     *      {@link Connection} instance to connect
+     * {@link JDBCConnector} instance for connection to the database
      */
-    public WorkDAO(Connection connection) {
-        this.connection = connection;
+    JDBCConnector connector;
+
+
+
+    public WorkDAOjdbc() {
+        connector = JDBCConnector.getINSTANCE();
+        connection = connector.getConnection();
     }
 
     @Override

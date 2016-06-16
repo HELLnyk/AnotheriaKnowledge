@@ -1,8 +1,8 @@
-package dao.daoiml;
+package databaseconnect.jdbcconnect.dao.daoiml;
 
-import dao.WorkDAO;
+import databaseconnect.jdbcconnect.dao.WorkDAOjdbc;
+import databaseconnect.InterfaceWorkDAO;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Arrays;
 
 /**
- * {@link dao.InterfaceWorkDAO} implementation for simple <code>int[]</code> entity
+ * {@link InterfaceWorkDAO} implementation for simple <code>int[]</code> entity
  *
  * @author hellnyk
  */
-public class WorkDAOImpl extends WorkDAO<int[]> {
+public class WorkDAOjdbcImpl extends WorkDAOjdbc<int[]> {
 
-    public WorkDAOImpl(Connection connection) {
-        super(connection);
+    public WorkDAOjdbcImpl() {
+        super();
     }
 
     @Override
