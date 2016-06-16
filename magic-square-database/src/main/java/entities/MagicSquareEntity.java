@@ -2,7 +2,6 @@ package entities;
 
 import javax.persistence.*;
 import java.io.*;
-import java.util.Arrays;
 
 /**
  * Object magic square to display the results in a database
@@ -94,9 +93,10 @@ public class MagicSquareEntity implements Serializable {
      */
     private String getSolutionResultString(){
         StringBuilder sBuilder = new StringBuilder();
-        for (int row = 0; row < solutionResultArray.length; row++) {
-            for (int column = 0; column < solutionResultArray[row].length; column++) {
-                sBuilder.append(solutionResultArray[row][column] + " ");
+        for (int[] matrixArray: solutionResultArray) {
+            for (int elem: matrixArray) {
+                sBuilder.append(elem);
+                sBuilder.append(" ");
             }
         }
         return sBuilder.toString();
@@ -127,10 +127,6 @@ public class MagicSquareEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "MagicSquareEntity{" +
-                "id=" + id +
-                ", solutionResultString='" + solutionResultString + '\'' +
-                ", solutionResultArray=" + Arrays.toString(solutionResultArray) +
-                '}';
+        return "MagicSquareEntity{" + "id=" + id + ", solutionResultString='" + solutionResultString + '}';
     }
 }
