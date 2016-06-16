@@ -19,7 +19,7 @@ public class UDPTest {
     @Test
     public void testConnection(){
         String[] ss = {"anotheria", "test", "Lorem ipsum"};
-        //UDPSimpleClient.main(new String[]{ss[0]});
+        //UDPSimpleClient.main(new String[]{});
         for (String s: ss) {
             UDPSimpleClient.main(new String[]{s});
         }

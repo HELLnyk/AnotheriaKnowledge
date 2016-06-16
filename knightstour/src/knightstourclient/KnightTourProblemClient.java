@@ -8,7 +8,7 @@ import khightstoursolution.KnightTourProblem;
 public class KnightTourProblemClient {
 
     public static void main(String[] args) {
-        testPosition(1,1);
+        testPosition(4,5);
     }
 
     public static void testAll(){

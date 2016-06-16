@@ -13,7 +13,7 @@ public class ClientServerTest {
     public void testServerStart(){
         new Thread(new Runnable() {
             public void run() {
-                SimpleServer.runServer();
+                SimpleServer.main(new String[]{});
             }
         }).start();
     }
@@ -40,5 +40,4 @@ public class ClientServerTest {
             SimpleClient.main(new String[]{element});
         }
     }
-
 }
