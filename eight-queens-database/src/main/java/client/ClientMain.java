@@ -62,7 +62,7 @@ public abstract class ClientMain {
      * @return
      *      value of the selected option
      */
-    private int enterOption(String forWhat){
+    protected int enterOption(String forWhat){
         int option;
         do{
             System.out.println(forWhat);
@@ -173,4 +173,9 @@ public abstract class ClientMain {
      * get information(it means some entity) from the database using index of this record
      */
     protected abstract void getIndex();
+
+    /**
+     * set which type of connection will be used
+     */
+    protected abstract void initConnect();
 }
