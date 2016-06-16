@@ -1,12 +1,11 @@
 package client;
 
-import dao.InterfaceWorkDAO;
-import dao.SimpleFactory;
+import databaseconnect.DatabaseConnect;
+import databaseconnect.InterfaceWorkDAO;
+import databaseconnect.SimpleFactory;
+import databaseconnect.hibernateconnect.EightQueenEntity;
 import eightqueensolution.QueenProblem;
 import eightqueensolution.SolutionEvent;
-import jdbcconnector.JDBCConnector;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Arrays;
@@ -18,79 +17,130 @@ import java.util.Arrays;
  */
 public class Client extends ClientMain {
 
+
     /**
-     * {@link JDBCConnector} instance for connection to the database
+     * type for choose connection with JDBC
      */
-    JDBCConnector connector;
+    private static final int ONE = 1;
+
+    /**
+     * type for choose connection with Hibernate
+     */
+    private static final int TWO = 2;
+
+    /**
+     * type of c
+     */
+    DatabaseConnect databaseConnect = null;
 
     /**
      * {@link InterfaceWorkDAO} instance for work with database
      */
     InterfaceWorkDAO interfaceWorkDAO;
 
-    /**
-     * Default constructor
-     */
-    public Client(){
-       initParameters();
-    }
 
     /**
-     * Initialization parameters
-     */
-    private void initParameters(){
-        connector = JDBCConnector.getINSTANCE();
-        interfaceWorkDAO = SimpleFactory.getWorkDAO(connector.getConnection());
-    }
-
-    /**
-     * main function of the client, which starts his work
+     * start client
      *
      * @param args
-     *      default {@code Sting} parameters of {@code main} method
+     *      default arguments for {@code main} method
      */
     public static void main(String[] args) {
         ClientMain client = new Client();
+        client.initConnect();
         client.chooseTypeOfWork();
     }
 
-    /**
-     * add, based on the client's work, data into the database
-     */
+    @Override
+    protected void initConnect(){
+        String dialogWithClient = "Enter type for working database\n" +
+                "1 - JDBC\n2 - Hibernate";
+        int option = enterOption(dialogWithClient);
+        switch (option){
+            case ONE:
+                databaseConnect = DatabaseConnect.JDBC;
+                break;
+            case TWO:
+                databaseConnect = DatabaseConnect.HIBERNATE;
+                break;
+        }
+        interfaceWorkDAO = SimpleFactory.getWorkDAO(databaseConnect);
+    }
+
     protected void clientFillDatabase(){
         String dialogWithClient = "Enter size of chessboard:";
         int capacityChessboard = enterValue(dialogWithClient);
         QueenProblem queenProblem = new QueenProblem(capacityChessboard, QueenProblem.PRINT_VECTOR);
         queenProblem.searchResult();
+
         List<SolutionEvent> list = queenProblem.getResults();
         for(SolutionEvent resultUnit: list){
-            interfaceWorkDAO.insert(resultUnit.getArray());
+            switch (databaseConnect){
+                case JDBC:
+                    interfaceWorkDAO.insert(resultUnit.getArray());
+                    break;
+                case HIBERNATE:
+                    interfaceWorkDAO.insert(new EightQueenEntity(resultUnit.getArray()));
+                    break;
+            }
         }
         setOptionContinueOfEnd();
     }
 
-    /**
-     * read all data from the database
-     */
     protected void getAll(){
         List resultFromDatabaseList =  interfaceWorkDAO.getAll();
         System.out.println("Database data:");
+        int[] array = null;
         for(Object object: resultFromDatabaseList){
-            int[] array = (int[]) object;
+            switch (databaseConnect){
+                case JDBC:
+                     array = (int[]) object;
+                    break;
+                case HIBERNATE:
+                    EightQueenEntity entity = (EightQueenEntity) object;
+                    array = entity.getSolutionResultArray();
+                    break;
+            }
+
             System.out.println(Arrays.toString(array));
         }
         setOptionContinueOfEnd();
     }
 
-    /**
-     * read data from database based on client`s input value
-     */
     protected void getIndex(){
         String dialogWithClient = "Enter index:";
         int index = enterValue(dialogWithClient);
-        int[] inResultForGetOne = (int[]) interfaceWorkDAO.get(index);
-        System.out.println(Arrays.toString(inResultForGetOne));
+        switch (databaseConnect){
+            case JDBC:
+                showOutputAfterJDBC(index);
+                break;
+            case HIBERNATE:
+                showOutputAfterHibernate(index);
+                break;
+        }
         setOptionContinueOfEnd();
     }
 
+    /**
+     * output one record in the database after using jdbc
+     *
+     * @param index
+     *      index of record in the database
+     */
+    private void showOutputAfterJDBC(int index) {
+        int[] inResultForGetOne = (int[]) interfaceWorkDAO.get(index);
+        System.out.println(Arrays.toString(inResultForGetOne));
+    }
+
+
+    /**
+     * output one record in the database after using hibernate
+     *
+     * @param index
+     *      index of record in the database
+     */
+    private void showOutputAfterHibernate(int index) {
+        EightQueenEntity entity = (EightQueenEntity) interfaceWorkDAO.get(index);
+        System.out.println(Arrays.toString(entity.getSolutionResultArray()));
+    }
 }
