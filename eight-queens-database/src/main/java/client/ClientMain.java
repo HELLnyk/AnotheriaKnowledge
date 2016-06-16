@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
+ * Class for dialog with the client of program
+ *
  * @author hellnyk
  */
 public abstract class ClientMain {
